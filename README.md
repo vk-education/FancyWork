@@ -6,7 +6,7 @@ Android-приложение для построения шаблонов для
 
 ## Команда авторов
 
-- [Борисов Константин](https://github.com/)
+- [Борисов Константин](https://github.com/cortan122)
 - [Кочарян Тигран](https://github.com/tigran-kocharyan)
 - [Зубарева Наталия](https://github.com/)
 - [Меньщиков Дмитрий](https://github.com/)
