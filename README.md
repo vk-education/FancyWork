@@ -9,5 +9,5 @@ Android-приложение для построения шаблонов для
 - [Борисов Константин](https://github.com/cortan122)
 - [Кочарян Тигран](https://github.com/tigran-kocharyan)
 - [Зубарева Наталия](https://github.com/)
-- [Меньщиков Дмитрий](https://github.com/)
+- [Меньщиков Дмитрий](https://github.com/mrGnost)
 - [Ризоева Амина](https://github.com/)
