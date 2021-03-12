@@ -13,7 +13,7 @@
 - [Кочарян Тигран](https://github.com/tigran-kocharyan)
 - [Зубарева Наталия](https://github.com/)
 - [Меньщиков Дмитрий](https://github.com/mrGnost)
-- [Ризоева Амина](https://github.com/)
+- [Ризоева Амина](https://github.com/stop-upiter)
 
 ---
 ## [Контакты.](https://vk.com/k_tigran)
