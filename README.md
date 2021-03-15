@@ -11,7 +11,7 @@
 
 - [Борисов Константин](https://github.com/cortan122)
 - [Кочарян Тигран](https://github.com/tigran-kocharyan)
-- [Зубарева Наталия](https://github.com/)
+- [Зубарева Наталия](https://github.com/HowToCodeWithPaws)
 - [Меньщиков Дмитрий](https://github.com/mrGnost)
 - [Ризоева Амина](https://github.com/stop-upiter)
 
