@@ -1,9 +1,9 @@
 package com.example.fancywork
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-///obviously we haven't done anything yet
+// obviously we haven't done anything yet
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
