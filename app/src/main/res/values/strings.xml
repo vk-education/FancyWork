@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FancyWork</string>
+    <string name="fancy_string">FANCY
+        STRING</string>
+    <string name="open_text">Открыть схему</string>
+    <string name="download_text">Загрузить картинку</string>
 </resources>
