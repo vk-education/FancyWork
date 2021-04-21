@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    ///todo for butten download image
+    // todo for butten download image
     public fun download(view: View) {
         Toast.makeText(
             view.context,
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         ).show()
     }
 
-    ///todo for button open scheme
+    // todo for button open scheme
     public fun open(view: View) {
         Toast.makeText(
             view.context,
