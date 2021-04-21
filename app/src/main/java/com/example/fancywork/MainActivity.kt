@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     ///todo for butten download image
-    public fun download(view : View) {
+    public fun download(view: View) {
         Toast.makeText(
             view.context,
             "вы ткнули на загрузку!",
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     ///todo for button open scheme
-    public fun open(view : View) {
+    public fun open(view: View) {
         Toast.makeText(
             view.context,
             "вы ткнули на открытие!",
