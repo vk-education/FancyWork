@@ -7,9 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 
 // obviously we haven't done anything yet
 class MainActivity : AppCompatActivity() {
+    lateinit var colors: List<Pair<String, Triple<Int, Int, Int>>>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // Reading thread colors dictionary from resources.
+        colors = PixelizationAlgorithm.getThreadColors(resources)
     }
 
     // todo for butten download image
