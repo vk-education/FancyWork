@@ -2,10 +2,8 @@ package com.example.fancywork
 
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-
-import io.uuddlrlrba.closepixelate.Pixelate;
-import io.uuddlrlrba.closepixelate.PixelateLayer;
+import io.uuddlrlrba.closepixelate.Pixelate
+import io.uuddlrlrba.closepixelate.PixelateLayer
 import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
@@ -29,7 +27,6 @@ class PixelizationAlgorithm {
         // This method makes a pixelated bitmap from image bitmap and provides an array of thread codes.
         fun getPixelsFromImage(
             bitmap: Bitmap,
-            resources: Resources,
             pixelSize: Int,
             colors: List<Pair<String, Triple<Int, Int, Int>>>):
                 Pair<Bitmap, Array<Array<String?>>> {
