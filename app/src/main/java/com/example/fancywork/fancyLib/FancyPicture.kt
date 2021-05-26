@@ -2,9 +2,9 @@ package com.example.fancywork.fancyLib
 
 import android.graphics.Bitmap
 
-class FancyPicture (pair: Pair<Bitmap, Array<Array<String?>>> , title: String, id: String){
+class FancyPicture(pair: Pair<Bitmap, Array<Array<String?>>>, title: String, id: String) {
 
-    //todo id generator
+    // todo id generator
 
     var image: Bitmap = pair.first
     var colors: Array<Array<String?>> = pair.second
@@ -19,5 +19,4 @@ class FancyPicture (pair: Pair<Bitmap, Array<Array<String?>>> , title: String, i
         width = colors.size
         length = colors[0].size
     }
-
 }
