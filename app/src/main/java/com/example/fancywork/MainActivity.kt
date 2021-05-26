@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val inputStream = this.applicationContext.contentResolver.openInputStream(data.data!!)
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            // todo: create new Fragment/Activity and pass bitmap to it
+            // todo create new Fragment/Activity and pass bitmap to it
 
             Toast.makeText(
                 this.applicationContext,
