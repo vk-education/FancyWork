@@ -92,8 +92,7 @@ class PixelizationAlgorythm {
                         colorsAv.second
                     )
                     )
-                ).pow(
-                    2
+                ).pow(2
             ) + (
                 (
                     1 + max(
