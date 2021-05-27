@@ -75,9 +75,10 @@ class PixelizationAlgorythm {
     private fun findDistance(x: Triple<Int, Int, Int>, colorsAv: Triple<Int, Int, Int>): Double {
         return (
             (
-               (
-                       1 + max(x.first, colorsAv.first)
-                                ).toDouble() / (1 + min(
+                (
+                    1 + max(x.first, colorsAv.first)
+                    ).toDouble() / (
+                        1 + min(
                             x.first,
                             colorsAv.first
                         )
