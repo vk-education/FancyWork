@@ -1,4 +1,4 @@
-package com.example.fancywork
+package ru.mail.fancywork
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,14 +1,15 @@
-package com.example.fancywork
+package ru.mail.fancywork.model.repo
 
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
+import ru.mail.fancywork.R
 import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 
-class PixelizationAlgorythm {
+class PixelizationRepository {
     fun getPixelsFromImage(
         bitmap: Bitmap,
         resources: Resources,
@@ -56,7 +57,7 @@ class PixelizationAlgorythm {
         val colorsSum = pixel
             .fold(
                 Triple
-                (0, 0, 0),
+                    (0, 0, 0),
                 { x, y ->
                     Triple(
                         x.first + (y shr 16) and 0xff,
@@ -74,37 +75,37 @@ class PixelizationAlgorythm {
 
     private fun findDistance(x: Triple<Int, Int, Int>, colorsAv: Triple<Int, Int, Int>): Double {
         return (
-            (
                 (
-                    1 + max(x.first, colorsAv.first)
-                    ).toDouble() / (
-                    1 + min(
-                        x.first,
-                        colorsAv.first
-                    )
-                    )
-                ).pow(2) + (
-                (
-                    1 + max(x.second, colorsAv.second)
-                    ).toDouble() / (
-                    1 + min(
-                        x.second,
-                        colorsAv.second
-                    )
-                    )
-                ).pow(2) + (
-                (
-                    1 + max(
-                        x.third,
-                        colorsAv.third
-                    )
-                    ).toDouble() / (
-                    1 + min(
-                        x.third,
-                        colorsAv.third
-                    )
-                    )
-                ).pow(2)
-            )
+                        (
+                                1 + max(x.first, colorsAv.first)
+                                ).toDouble() / (
+                                1 + min(
+                                    x.first,
+                                    colorsAv.first
+                                )
+                                )
+                        ).pow(2) + (
+                        (
+                                1 + max(x.second, colorsAv.second)
+                                ).toDouble() / (
+                                1 + min(
+                                    x.second,
+                                    colorsAv.second
+                                )
+                                )
+                        ).pow(2) + (
+                        (
+                                1 + max(
+                                    x.third,
+                                    colorsAv.third
+                                )
+                                ).toDouble() / (
+                                1 + min(
+                                    x.third,
+                                    colorsAv.third
+                                )
+                                )
+                        ).pow(2)
+                )
     }
 }

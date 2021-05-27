@@ -1,8 +1,9 @@
-package com.example.fancywork
+package ru.mail.fancywork.ui.primary
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import ru.mail.fancywork.R
 
 class MainActivity : AppCompatActivity() {
 

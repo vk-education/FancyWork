@@ -1,4 +1,4 @@
-package com.example.fancywork
+package ru.mail.fancywork.ui.secondary
 
 import android.app.Activity
 import android.content.Intent
@@ -7,8 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ru.mail.fancywork.R
 
-class WorkEdit : AppCompatActivity() {
+class WorkspaceActivity : AppCompatActivity() {
 
     companion object {
         private const val PICK_IMAGE = 122
