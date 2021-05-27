@@ -78,18 +78,21 @@ class PixelizationAlgorythm {
                 (
                     1 + max(x.first, colorsAv.first)
                     ).toDouble() / (
-                        1 + min(
-                            x.first,
-                            colorsAv.first
-                        )
-                                )
-                        ).pow(2) + (
-                        (1 + max(x.second, colorsAv.second)).toDouble() / (1 + min(
-                            x.second,
-                            colorsAv.second
-                        )
-                                )
-                        ).pow(
+                    1 + min(
+                        x.first,
+                        colorsAv.first
+                    )
+                    )
+                ).pow(2) + (
+                (
+                    1 + max(x.second, colorsAv.second)
+                    ).toDouble() / (
+                    1 + min(
+                        x.second,
+                        colorsAv.second
+                    )
+                    )
+                    ).pow(
                     2) + (
                         (
                                 1 + max(
@@ -99,6 +102,8 @@ class PixelizationAlgorythm {
                 )
                     )
                 ).pow(
-                    2))
+                2
+                )
+                )
     }
 }
