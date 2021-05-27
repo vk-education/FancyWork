@@ -89,12 +89,16 @@ class PixelizationAlgorythm {
                             colorsAv.second
                         )
                                 )
-                        ).pow(2) + (
-                        (1 + max(x.third, colorsAv.third)).toDouble() / (1 + min(
-                            x.third,
-                            colorsAv.third
-                        )
-                                )
-                        ).pow(2))
+                        ).pow(
+                    2) + (
+                        (
+                                1 + max(
+                                    x.third, colorsAv.third)).toDouble() / (1 + min(
+                    x.third,
+                    colorsAv.third
+                )
+                    )
+                ).pow(
+                    2))
     }
 }
