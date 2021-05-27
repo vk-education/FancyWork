@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     // todo google auth
-    public fun loginGoogle(view: View) {}
+    public fun loginGoogle(view: View) {
+        // БОРЕМСЯ С КОДСТАЙЛОМ
+    }
 
     // todo local auth
     public fun loginWithoutGoogle(view: View) {
