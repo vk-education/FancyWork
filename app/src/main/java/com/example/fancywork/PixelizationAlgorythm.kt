@@ -56,7 +56,7 @@ class PixelizationAlgorythm {
         val colorsSum = pixel
             .fold(
                 Triple
-                    (0, 0, 0),
+                (0, 0, 0),
                 { x, y ->
                     Triple(
                         x.first + (y shr 16) and 0xff,
