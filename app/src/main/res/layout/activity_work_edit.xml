@@ -4,45 +4,45 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".WorkEdit">
+        tools:context="ru.mail.fancywork.ui.secondary.WorkspaceActivity">
 
-    <Button
-            android:id="@+id/download"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:text="@string/download_text"
-            android:onClick="download"
-            android:backgroundTint="@color/background"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.961"
-            app:layout_constraintHorizontal_bias="0.893" />
+<!--    <Button-->
+<!--            android:id="@+id/download"-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:text="@string/download_text"-->
+<!--            android:onClick="download"-->
+<!--            android:backgroundTint="@color/background"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.961"-->
+<!--            app:layout_constraintHorizontal_bias="0.893" />-->
 
-    <ImageView
-            android:layout_width="120dp"
-            android:layout_height="85dp"
-            app:srcCompat="@drawable/download_pic"
-            android:id="@+id/download_image"
-            android:backgroundTint="@color/background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.893"
-            app:layout_constraintVertical_bias="0.851" />
+<!--    <ImageView-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="85dp"-->
+<!--            app:srcCompat="@drawable/download_pic"-->
+<!--            android:id="@+id/download_image"-->
+<!--            android:backgroundTint="@color/background"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.893"-->
+<!--            app:layout_constraintVertical_bias="0.851" />-->
 
-    <ImageView
-            android:layout_width="335dp"
-            android:layout_height="325dp"
-            app:srcCompat="?android:attr/galleryItemBackground"
-            android:id="@+id/work_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent" />
+<!--    <ImageView-->
+<!--            android:layout_width="335dp"-->
+<!--            android:layout_height="325dp"-->
+<!--            app:srcCompat="?android:attr/galleryItemBackground"-->
+<!--            android:id="@+id/work_image"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
