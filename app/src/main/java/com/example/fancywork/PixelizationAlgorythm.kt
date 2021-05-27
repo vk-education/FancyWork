@@ -22,7 +22,11 @@ class PixelizationAlgorythm {
             .map { x -> x.split(",") }
             .map { x -> x[0] to Triple(x[1].toInt(), x[2].toInt(), x[3].toInt()) }
         val resultTable = Array(ceil(bitmap.width.toDouble() / pixelSize).toInt()) {
-            arrayOfNulls<Pair<String, Triple<Int, Int, Int>>>(ceil(bitmap.height.toDouble()).toInt())
+            arrayOfNulls<Pair<String, Triple<Int, Int, Int>>>(
+                ceil(
+                    bitmap.height.toDouble()
+                ).toInt()
+            )
         }
         for (i in 0 until bitmap.width step pixelSize) {
             for (j in 0 until bitmap.height step pixelSize) {
