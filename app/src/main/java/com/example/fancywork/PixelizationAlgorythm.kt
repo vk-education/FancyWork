@@ -92,8 +92,7 @@ class PixelizationAlgorythm {
                         colorsAv.second
                     )
                     )
-                ).pow(2
-            ) + (
+                ).pow(2) + (
                 (
                     1 + max(
                         x.third,
@@ -107,7 +106,7 @@ class PixelizationAlgorythm {
                     )
                 ).pow(
                     2
-                )
+            )
             )
     }
 }
