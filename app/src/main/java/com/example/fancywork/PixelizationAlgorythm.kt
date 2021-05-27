@@ -104,9 +104,7 @@ class PixelizationAlgorythm {
                         colorsAv.third
                     )
                     )
-                ).pow(
-                    2
-            )
+                ).pow(2)
             )
     }
 }
