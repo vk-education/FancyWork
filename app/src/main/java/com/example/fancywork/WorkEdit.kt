@@ -26,8 +26,6 @@ class WorkEdit : AppCompatActivity() {
             val inputStream = this.applicationContext.contentResolver.openInputStream(data.data!!)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             // todo pass bitmap to work_image ImageView
-
-
             Toast.makeText(
                 this.applicationContext,
                 "вы загрузили битмап ${bitmap.width}x${bitmap.height}!",

@@ -54,13 +54,16 @@ class PixelizationAlgorythm {
 
     private fun findAverageColor(pixel: IntArray, pixelWidth: Int, pixelHeight: Int): Int {
         val colorsSum = pixel
-            .fold(Triple(0, 0, 0), { x, y ->
-                Triple(
-                    x.first + (y shr 16) and 0xff,
-                    x.second + (y shr 8) and 0xff,
-                    x.third + y and 0xff
-                )
-            })
+            .fold(Triple
+                (0, 0, 0),
+                { x, y ->
+                    Triple(
+                        x.first + (y shr 16) and 0xff,
+                        x.second + (y shr 8) and 0xff,
+                        x.third + y and 0xff
+                    )
+                }
+            )
         return Color.rgb(
             colorsSum.first / (pixelWidth * pixelHeight),
             colorsSum.second / (pixelWidth * pixelHeight),
@@ -69,17 +72,20 @@ class PixelizationAlgorythm {
     }
 
     private fun findDistance(x: Triple<Int, Int, Int>, colorsAv: Triple<Int, Int, Int>): Double {
-        return (((1 + max(x.first, colorsAv.first)).toDouble() / (1 + min(
-            x.first,
-            colorsAv.first
-        ))).pow(2)
-                + ((1 + max(x.second, colorsAv.second)).toDouble() / (1 + min(
-            x.second,
-            colorsAv.second
-        ))).pow(2)
-                + ((1 + max(x.third, colorsAv.third)).toDouble() / (1 + min(
-            x.third,
-            colorsAv.third
-        ))).pow(2))
+        return (
+                ((1 + max(x.first, colorsAv.first)).toDouble() / (1 + min(
+                    x.first,
+                    colorsAv.first
+                ))).pow(2)
+                        + (
+                        (1 + max(x.second, colorsAv.second)).toDouble() / (1 + min(
+                            x.second,
+                            colorsAv.second
+                        ))).pow(2)
+                        + (
+                        (1 + max(x.third, colorsAv.third)).toDouble() / (1 + min(
+                            x.third,
+                            colorsAv.third
+                        ))).pow(2))
     }
 }
