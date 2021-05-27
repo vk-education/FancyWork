@@ -54,33 +54,33 @@ class WorkEdit : AppCompatActivity() {
 }
 
 // todo если нам нужна кнопка загрузки вышивки то вот ее лейаут
-//<Button
-//android:id="@+id/open"
-//android:layout_width="120dp"
-//android:layout_height="60dp"
-//android:onClick="open"
-//android:text="@string/open_text"
-//android:backgroundTint="@color/background"
-//android:textColor="@color/black"
-//app:layout_constraintBottom_toBottomOf="parent"
-//app:layout_constraintEnd_toEndOf="parent"
-//app:layout_constraintHorizontal_bias="0.173"
-//app:layout_constraintStart_toStartOf="parent"
-//app:layout_constraintTop_toTopOf="parent"
-//app:layout_constraintVertical_bias="0.961" />
+// <Button
+// android:id="@+id/open"
+// android:layout_width="120dp"
+// android:layout_height="60dp"
+// android:onClick="open"
+// android:text="@string/open_text"
+// android:backgroundTint="@color/background"
+// android:textColor="@color/black"
+// app:layout_constraintBottom_toBottomOf="parent"
+// app:layout_constraintEnd_toEndOf="parent"
+// app:layout_constraintHorizontal_bias="0.173"
+// app:layout_constraintStart_toStartOf="parent"
+// app:layout_constraintTop_toTopOf="parent"
+// app:layout_constraintVertical_bias="0.961" />
 
-//<ImageView
-//android:layout_width="120dp"
-//android:layout_height="95dp"
-//app:srcCompat="@drawable/open_pic"
-//android:id="@+id/imageView2"
-//android:backgroundTint="@color/background"
-//app:layout_constraintTop_toTopOf="parent"
-//app:layout_constraintBottom_toBottomOf="parent"
-//app:layout_constraintEnd_toEndOf="parent"
-//app:layout_constraintStart_toStartOf="parent"
-//app:layout_constraintHorizontal_bias="0.171"
-//app:layout_constraintVertical_bias="0.849" />
+// <ImageView
+// android:layout_width="120dp"
+// android:layout_height="95dp"
+// app:srcCompat="@drawable/open_pic"
+// android:id="@+id/imageView2"
+// android:backgroundTint="@color/background"
+// app:layout_constraintTop_toTopOf="parent"
+// app:layout_constraintBottom_toBottomOf="parent"
+// app:layout_constraintEnd_toEndOf="parent"
+// app:layout_constraintStart_toStartOf="parent"
+// app:layout_constraintHorizontal_bias="0.171"
+// app:layout_constraintVertical_bias="0.849" />
 
 //    // todo for button open scheme
 //    public fun open(view: View) {
