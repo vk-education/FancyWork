@@ -93,7 +93,7 @@ class PixelizationAlgorythm {
                     )
                     )
                 ).pow(
-                2
+                    2
             ) + (
                 (
                     1 + max(
