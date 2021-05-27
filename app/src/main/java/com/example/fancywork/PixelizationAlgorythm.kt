@@ -9,8 +9,11 @@ import kotlin.math.min
 import kotlin.math.pow
 
 class PixelizationAlgorythm {
-    fun getPixelsFromImage(bitmap: Bitmap, resources: Resources, pixelSize: Int):
-            Array<Array<Pair<String, Triple<Int, Int, Int>>?>> {
+    fun getPixelsFromImage(
+        bitmap: Bitmap,
+        resources: Resources,
+        pixelSize: Int
+    ): Array<Array<Pair<String, Triple<Int, Int, Int>>?>> {
         val stream = resources.openRawResource(R.raw.colors)
         val colors = stream
             .bufferedReader()
