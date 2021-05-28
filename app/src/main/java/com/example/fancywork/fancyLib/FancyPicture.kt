@@ -21,12 +21,12 @@ data class FancyPicture(
         colors: List<List<String>>,
         author: String,
         difficulty: Difficulty
-    ) : this(id, title, image,  colors) {
+    ) : this(id, title, image, colors) {
         this.author = author
         this.difficulty = difficulty
     }
 
-    fun getProportions() : Pair<Int, Int>? {
+    fun getProportions(): Pair<Int, Int>? {
         if (colors.isEmpty() || colors[0].isEmpty()) {
             return null
         }
