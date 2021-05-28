@@ -15,9 +15,8 @@
     </style>
 
     <style name="ToolbarStyleLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="titleTextAppearance">@style/TextAppearance.AppCompat.Title</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:popupTheme">@style/PopupThemeLight</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
     <style name="PopupThemeLight" parent="ThemeOverlay.AppCompat.Light">
