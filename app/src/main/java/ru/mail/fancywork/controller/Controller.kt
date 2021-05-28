@@ -1,7 +1,6 @@
 package ru.mail.fancywork.controller
 
 import android.content.Intent
-import com.google.firebase.auth.FirebaseAuth
 import ru.mail.fancywork.model.repo.AuthRepository
 
 class Controller(
