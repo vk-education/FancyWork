@@ -2,21 +2,35 @@ package com.example.fancywork.fancyLib
 
 import android.graphics.Bitmap
 
-class FancyPicture(pair: Pair<Bitmap, Array<Array<String?>>>, title: String, id: String) {
-
+data class FancyPicture(
+    val id: String,
+    val title: String,
+    val image: Bitmap,
+    val colors: List<List<String>>
+) {
     // todo id generator
+    // todo difficulty definer
 
-    var image: Bitmap = pair.first
-    var colors: Array<Array<String?>> = pair.second
+    var author: String = "unknown"
+    var difficulty: Difficulty = Difficulty.UNDEFINED
 
-    var title: String = title
-    var id: String = id
+    constructor(
+        id: String,
+        title: String,
+        image: Bitmap,
+        colors: List<List<String>>,
+        author: String,
+        difficulty: Difficulty
+    ) : this(id, title, image,  colors) {
+        this.author = author
+        this.difficulty = difficulty
+    }
 
-    var width: Int
-    var length: Int
+    fun getProportions() : Pair<Int, Int>? {
+        if (colors.isEmpty() || colors[0].isEmpty()) {
+            return null
+        }
 
-    init {
-        width = colors.size
-        length = colors[0].size
+        return Pair(colors.size, colors[0].size)
     }
 }
