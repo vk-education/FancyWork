@@ -1,6 +1,7 @@
 package ru.mail.fancywork.controller
 
 import android.content.Intent
+import com.google.firebase.auth.FirebaseAuth
 import ru.mail.fancywork.model.repo.AuthRepository
 
 class Controller(
@@ -17,6 +18,10 @@ class Controller(
 
     fun getAuthIntent(): Intent {
         return auth.getAuthIntent()
+    }
+
+    fun logOut() {
+        auth.logOut();
     }
 
     fun isAuthorized(): Boolean = auth.isAuthorized()

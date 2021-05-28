@@ -7,82 +7,23 @@
         tools:context="ru.mail.fancywork.ui.primary.MainActivity"
         android:theme="@style/Theme.FancyWork">
 
-<!--    <TextView-->
-<!--            android:layout_width="255dp"-->
-<!--            android:layout_height="256dp"-->
-<!--            android:text="@string/fancy_string"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.033"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Display3"-->
-<!--            android:id="@+id/textView"-->
-<!--            app:layout_constraintHorizontal_bias="0.134" />-->
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/secondaryColor"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-<!--    <Button-->
-<!--            android:id="@+id/button_login_google"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="65dp"-->
-<!--            android:onClick="loginGoogle"-->
-<!--            android:text="@string/google"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="12sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.173"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.961" />-->
-
-
-<!--    <Button-->
-<!--            android:id="@+id/button_login_without_google"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="65dp"-->
-<!--            android:text="@string/without_google"-->
-<!--            android:onClick="loginWithoutGoogle"-->
-<!--            android:textSize="12sp"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.961"-->
-<!--            app:layout_constraintHorizontal_bias="0.893" />-->
-
-<!--    <ImageView-->
-<!--            android:layout_width="374dp"-->
-<!--            android:layout_height="315dp"-->
-<!--            app:srcCompat="@drawable/main_pic"-->
-<!--            android:id="@+id/imageView"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.567"-->
-<!--            app:layout_constraintVertical_bias="0.437" />-->
-
-<!--    <ImageView-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="95dp"-->
-<!--            app:srcCompat="@drawable/open_pic"-->
-<!--            android:id="@+id/imageView2"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.171"-->
-<!--            app:layout_constraintVertical_bias="0.849" />-->
-
-
+        <androidx.appcompat.widget.Toolbar
+                style="?toolbarStyle"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/top_main_actionbar"
+                android:hapticFeedbackEnabled="false"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

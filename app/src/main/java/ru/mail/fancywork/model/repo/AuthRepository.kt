@@ -23,6 +23,10 @@ class AuthRepository(private val auth: FirebaseAuth = FirebaseAuth.getInstance()
         return FirebaseAuth.getInstance().currentUser != null
     }
 
+    fun logOut() {
+        FirebaseAuth.getInstance().signOut()
+    }
+
     companion object {
         private const val TAG = "FirebaseRepository"
     }

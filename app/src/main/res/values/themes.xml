@@ -13,4 +13,14 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ToolbarStyleLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="titleTextAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:popupTheme">@style/PopupThemeLight</item>
+    </style>
+
+    <style name="PopupThemeLight" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/lightBackground</item>
+    </style>
 </resources>
