@@ -19,5 +19,9 @@ class Controller(
         return auth.getAuthIntent()
     }
 
+    fun logOut() {
+        auth.logOut();
+    }
+
     fun isAuthorized(): Boolean = auth.isAuthorized()
 }
