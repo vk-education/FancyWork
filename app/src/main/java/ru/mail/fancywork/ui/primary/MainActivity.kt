@@ -2,8 +2,11 @@ package ru.mail.fancywork.ui.primary
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.ui.auth.AuthActivity
@@ -28,15 +31,19 @@ class MainActivity : AppCompatActivity() {
                     else -> false
                 }
             }
+
+        var worksList: RecyclerView = findViewById(R.id.rv_works)
+        var ar: ArrayList<Int> = ArrayList()
+        ar.add(6)
+        ar.add(5)
+        ar.add(4)
+        var adapter = WorksListAdapter(ar)
+
+        worksList.adapter = adapter
+        worksList.layoutManager = LinearLayoutManager(this.applicationContext)
     }
 
-    // todo google auth
-    public fun loginGoogle(view: View) {
-        // БОРЕМСЯ С КОДСТАЙЛОМ
-    }
-
-    // todo local auth
-    public fun loginWithoutGoogle(view: View) {
-        // todo open recycle view activity
+    public fun add(view:View){
+        //todo открыть активити просмотра вышивки
     }
 }
