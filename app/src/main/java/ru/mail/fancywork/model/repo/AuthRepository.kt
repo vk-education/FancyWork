@@ -3,10 +3,11 @@ package ru.mail.fancywork.model.repo
 import android.content.Intent
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import ru.mail.fancywork.model.utils.AuthException
 
 class AuthRepository(private val auth: FirebaseAuth = FirebaseAuth.getInstance()) {
-    fun getUserID(): String? {
-        return auth.currentUser?.uid
+    fun getUserID(): String {
+        return auth.currentUser!!.uid
     }
 
     fun getAuthIntent(): Intent {
@@ -28,6 +29,7 @@ class AuthRepository(private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     }
 
     companion object {
+        const val AUTH_ERROR = "The user isn't authorized"
         private const val TAG = "FirebaseRepository"
     }
 }

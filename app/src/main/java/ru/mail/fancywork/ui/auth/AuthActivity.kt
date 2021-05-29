@@ -18,7 +18,7 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         if (controller.isAuthorized()) {
-//            controller.addUser()
+            controller.addUser()
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -33,7 +33,7 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
             RC_SIGN_IN -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-//                        controller.addUser()
+                        controller.addUser()
                         startActivity(Intent(this, MainActivity::class.java))
                     }
                     else -> Toast.makeText(
