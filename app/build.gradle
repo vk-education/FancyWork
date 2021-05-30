@@ -55,5 +55,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.otaliastudios:zoomlayout:1.8.0'
+    implementation 'io.uuddlrlrba:close-pixelate:1.2.0'
 
 }

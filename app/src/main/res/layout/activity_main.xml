@@ -60,6 +60,7 @@
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/secondaryColor"
                 android:contentDescription="Add Transaction"
+                android:onClick="add"
                 android:elevation="0dp"
                 android:src="@drawable/ic_add"
                 app:elevation="0dp"

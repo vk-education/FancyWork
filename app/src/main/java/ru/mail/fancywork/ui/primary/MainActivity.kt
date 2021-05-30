@@ -1,6 +1,8 @@
 package ru.mail.fancywork.ui.primary
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +12,13 @@ import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.ui.adapter.FancyworkAdapter
 import ru.mail.fancywork.ui.auth.AuthActivity
+import ru.mail.fancywork.ui.secondary.WorkspaceActivity
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val PICK_IMAGE = 122
+        const val BITMAP_MESSAGE = "ru.mail.fancywork.BITMAP_MESSAGE"
+    }
 
     private val controller = Controller()
 
@@ -43,7 +50,24 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this.applicationContext)
     }
 
-    public fun add(view:View){
-        //todo открыть активити просмотра вышивки
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+
+            startActivity(Intent(this, WorkspaceActivity::class.java).apply {
+                putExtra(BITMAP_MESSAGE, data.data)
+            })
+        }
+    }
+
+    fun add(view: View) {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(
+            Intent.createChooser(intent, "Select Picture"),
+            PICK_IMAGE
+        )
     }
 }

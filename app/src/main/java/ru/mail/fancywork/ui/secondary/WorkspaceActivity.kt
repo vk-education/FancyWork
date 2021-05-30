@@ -1,91 +1,69 @@
 package ru.mail.fancywork.ui.secondary
 
-import android.app.Activity
-import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.slider.Slider
 import ru.mail.fancywork.R
+import ru.mail.fancywork.model.repo.PixelizationRepository
+import ru.mail.fancywork.ui.primary.MainActivity
+import ru.mail.fancywork.ui.view.ColorGridView
 
 class WorkspaceActivity : AppCompatActivity() {
-
     companion object {
-        private const val PICK_IMAGE = 122
+        private val pixelRepo = PixelizationRepository()
+    }
+
+    private lateinit var originalBitmap: Bitmap
+    private lateinit var pixelatedBitmap: Bitmap
+    private lateinit var colorGridView: ColorGridView
+    private lateinit var scaleSlider: Slider
+    private lateinit var colorSlider: Slider
+    private var scale = 25
+    private var colors = 5
+
+    private fun finalizeEmbroidery() {
+        // todo (needs data class)
+    }
+
+    private fun pixelate() {
+        val ratio = originalBitmap.width / originalBitmap.height.toFloat()
+        val isVertical = ratio > 1.0
+        val width = if (isVertical) (scale * ratio).toInt() else scale
+        val height = if (isVertical) scale else (scale / ratio).toInt()
+
+        // todo (needs better pixelRepo)
+        pixelatedBitmap = Bitmap.createScaledBitmap(originalBitmap, width, height, false)
+
+        colorGridView.setImage(pixelatedBitmap)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_edit)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        val uri = intent.getParcelableExtra<Uri>(MainActivity.BITMAP_MESSAGE)!!
+        val inputStream = this.applicationContext.contentResolver.openInputStream(uri)
+        originalBitmap = BitmapFactory.decodeStream(inputStream)
 
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
-            val inputStream = this.applicationContext.contentResolver.openInputStream(data.data!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            // todo pass bitmap to work_image ImageView
-            Toast.makeText(
-                this.applicationContext,
-                "вы загрузили битмап ${bitmap.width}x${bitmap.height}!",
-                Toast.LENGTH_LONG
-            ).show()
+        colorGridView = findViewById(R.id.color_grid_view)
+        scaleSlider = findViewById(R.id.scaleSlider)
+        colorSlider = findViewById(R.id.colorSlider)
+
+        scaleSlider.value = scale.toFloat()
+        colorSlider.value = colors.toFloat()
+
+        scaleSlider.addOnChangeListener { _, value, _ ->
+            scale = value.toInt()
+            pixelate()
         }
-    }
+        colorSlider.addOnChangeListener { _, value, _ ->
+            colors = value.toInt()
+            pixelate()
+        }
 
-    public fun download(view: View) {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(
-            Intent.createChooser(intent, "Select Picture"),
-            PICK_IMAGE
-        )
-
-        Toast.makeText(
-            view.context,
-            "вы ткнули на загрузку!",
-            Toast.LENGTH_LONG
-        ).show()
+        pixelate()
     }
 }
-
-// todo если нам нужна кнопка загрузки вышивки то вот ее лейаут
-// <Button
-// android:id="@+id/open"
-// android:layout_width="120dp"
-// android:layout_height="60dp"
-// android:onClick="open"
-// android:text="@string/open_text"
-// android:backgroundTint="@color/background"
-// android:textColor="@color/black"
-// app:layout_constraintBottom_toBottomOf="parent"
-// app:layout_constraintEnd_toEndOf="parent"
-// app:layout_constraintHorizontal_bias="0.173"
-// app:layout_constraintStart_toStartOf="parent"
-// app:layout_constraintTop_toTopOf="parent"
-// app:layout_constraintVertical_bias="0.961" />
-
-// <ImageView
-// android:layout_width="120dp"
-// android:layout_height="95dp"
-// app:srcCompat="@drawable/open_pic"
-// android:id="@+id/imageView2"
-// android:backgroundTint="@color/background"
-// app:layout_constraintTop_toTopOf="parent"
-// app:layout_constraintBottom_toBottomOf="parent"
-// app:layout_constraintEnd_toEndOf="parent"
-// app:layout_constraintStart_toStartOf="parent"
-// app:layout_constraintHorizontal_bias="0.171"
-// app:layout_constraintVertical_bias="0.849" />
-
-//    // todo for button open scheme
-//    public fun open(view: View) {
-//        Toast.makeText(
-//            view.context,
-//            "вы ткнули на открытие!",
-//            Toast.LENGTH_LONG
-//        ).show()
-//    }
