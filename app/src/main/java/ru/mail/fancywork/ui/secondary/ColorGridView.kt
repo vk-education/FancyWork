@@ -1,4 +1,4 @@
-package ru.mail.fancywork.ui.view
+package ru.mail.fancywork.ui.secondary
 
 import android.content.Context
 import android.graphics.Bitmap

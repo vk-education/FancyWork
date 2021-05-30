@@ -2,7 +2,6 @@ package ru.mail.fancywork.ui.primary
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.ui.adapter.FancyworkAdapter
-import ru.mail.fancywork.ui.auth.AuthActivity
-import ru.mail.fancywork.ui.secondary.WorkspaceActivity
 
 class MainActivity : AppCompatActivity() {
     companion object {

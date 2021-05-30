@@ -9,9 +9,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.FancyWork">
-        <activity android:name="ru.mail.fancywork.ui.secondary.WorkspaceActivity" />
+        <activity android:name="ru.mail.fancywork.ui.primary.WorkspaceActivity" />
         <activity android:name="ru.mail.fancywork.ui.primary.MainActivity" />
-        <activity android:name="ru.mail.fancywork.ui.auth.AuthActivity">
+        <activity android:name="ru.mail.fancywork.ui.primary.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

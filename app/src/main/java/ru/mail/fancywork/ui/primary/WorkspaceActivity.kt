@@ -1,4 +1,4 @@
-package ru.mail.fancywork.ui.secondary
+package ru.mail.fancywork.ui.primary
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,8 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.slider.Slider
 import ru.mail.fancywork.R
 import ru.mail.fancywork.model.repo.PixelizationRepository
-import ru.mail.fancywork.ui.primary.MainActivity
-import ru.mail.fancywork.ui.view.ColorGridView
+import ru.mail.fancywork.ui.secondary.ColorGridView
 
 class WorkspaceActivity : AppCompatActivity() {
     companion object {
@@ -42,7 +41,7 @@ class WorkspaceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_work_edit)
+        setContentView(R.layout.activity_pixelspace)
 
         val uri = intent.getParcelableExtra<Uri>(MainActivity.BITMAP_MESSAGE)!!
         val inputStream = this.applicationContext.contentResolver.openInputStream(uri)
