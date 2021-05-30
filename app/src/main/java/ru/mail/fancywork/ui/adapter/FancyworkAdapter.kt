@@ -1,19 +1,20 @@
-package ru.mail.fancywork.ui.primary
+package ru.mail.fancywork.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.mail.fancywork.databinding.WorkItemInRvBinding
+import ru.mail.fancywork.databinding.ViewFancyworkBinding
 
-class WorksListAdapter(
-    private var worksList: List<Int>//dataclasses
-) : RecyclerView.Adapter<WorksListAdapter.ViewHolder>() {
+class FancyworkAdapter(
+    private var worksList: List<Int>
+) : RecyclerView.Adapter<FancyworkAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: WorkItemInRvBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ViewFancyworkBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            WorkItemInRvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ViewFancyworkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -23,7 +24,8 @@ class WorksListAdapter(
             with(worksList[position]) {
                 binding.name.text = "ВЫЩЩЩИВКА"
                 binding.difficulty.rating = 4F
-                var str = "размер: " + worksList[position] + "x" + worksList[position] + "\nцветов: 5"
+                var str =
+                    "размер: " + this + "x" + this + "\nцветов: 5"
 
                 binding.info.text = str
 

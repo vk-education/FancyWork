@@ -1,25 +1,18 @@
 package ru.mail.fancywork.model.repo
 
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 
 class FirestoreRepository(private val db: FirebaseFirestore = FirebaseFirestore.getInstance()) {
 
-    suspend fun checkUser(uid: String) = withContext(Dispatchers.IO) {
-        val result = db.collection("users").document(uid).get().await()
-        if (!result.exists()) {
-            addUser(uid)
-        }
-    }
-
-    fun addUser(uid: String) {
+    fun addUser(user: FirebaseUser) {
         db.collection("users")
-            .document(uid)
+            .document(user.uid)
             .set(
                 hashMapOf<String, Any>(
-                    "uid" to uid
+                    "uid" to user.uid,
+                    "name" to (user.displayName ?: "undefined"),
+                    "email" to (user.email ?: "undefined")
                 )
             )
     }

@@ -2,13 +2,13 @@ package ru.mail.fancywork.ui.primary
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
+import ru.mail.fancywork.ui.adapter.FancyworkAdapter
 import ru.mail.fancywork.ui.auth.AuthActivity
 
 class MainActivity : AppCompatActivity() {
@@ -32,15 +32,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        var worksList: RecyclerView = findViewById(R.id.rv_works)
+        val rv: RecyclerView = findViewById(R.id.embroidery_list)
         var ar: ArrayList<Int> = ArrayList()
         ar.add(6)
         ar.add(5)
         ar.add(4)
-        var adapter = WorksListAdapter(ar)
+        var adapter = FancyworkAdapter(ar)
 
-        worksList.adapter = adapter
-        worksList.layoutManager = LinearLayoutManager(this.applicationContext)
+        rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(this.applicationContext)
     }
 
     public fun add(view:View){

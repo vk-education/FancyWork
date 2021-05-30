@@ -14,11 +14,7 @@ class Controller(
     }
 
     fun addUser() {
-        auth.getUserID().let { fs.addUser(it) }
-    }
-
-    suspend fun checkUser() {
-        auth.getUserID().let { fs.checkUser(it) }
+        auth.getUser()?.let { fs.addUser(it) } ?: throw AuthException(AUTH_ERROR)
     }
 
     fun getAuthIntent(): Intent {

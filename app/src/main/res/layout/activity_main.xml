@@ -28,6 +28,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:padding="4dp"
             android:id="@+id/refresh"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -38,11 +39,10 @@
             app:layout_constraintTop_toBottomOf="@+id/top_bar_layout">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_works"
+                android:id="@+id/embroidery_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingHorizontal="10dp"
                 android:paddingBottom="60dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
