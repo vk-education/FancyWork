@@ -25,8 +25,8 @@ class FancyworkAdapter(
             with(worksList[position]) {
                 binding.name.text = title
                 binding.difficulty.rating = 4F
-
-                binding.info.text = "размер ${width}x$height\nцветов: $colors"
+                binding.colorText.text = "Цветов: $colors"
+                binding.sizeText.text = "Размер: ${width} x $height"
 
                 if (bitmap != null) {
                     binding.image.setImageBitmap(bitmap)

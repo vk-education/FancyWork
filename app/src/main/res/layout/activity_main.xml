@@ -28,7 +28,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:padding="4dp"
             android:id="@+id/refresh"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -39,6 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/top_bar_layout">
 
         <androidx.recyclerview.widget.RecyclerView
+                android:padding="4dp"
                 android:id="@+id/embroidery_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_height="match_parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_transaction"
+                android:id="@+id/add_fancywork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
@@ -60,7 +60,6 @@
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/secondaryColor"
                 android:contentDescription="Add Transaction"
-                android:onClick="add"
                 android:elevation="0dp"
                 android:src="@drawable/ic_add"
                 app:elevation="0dp"

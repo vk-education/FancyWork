@@ -2,7 +2,6 @@ package ru.mail.fancywork.model.repo
 
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.getField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -45,8 +44,7 @@ class FirestoreRepository(private val db: FirebaseFirestore = FirebaseFirestore.
         }
 
     fun addUser(user: FirebaseUser) {
-        db.collection("users")
-            .document(user.uid)
+        db.collection("users").document(user.uid)
             .set(
                 hashMapOf<String, Any>(
                     "uid" to user.uid,
