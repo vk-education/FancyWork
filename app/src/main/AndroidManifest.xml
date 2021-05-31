@@ -9,11 +9,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.FancyWork">
-        <activity android:name="ru.mail.fancywork.ui.primary.WorkspaceActivity" />
-        <activity android:name="ru.mail.fancywork.ui.primary.MainActivity" />
-        <activity android:name="ru.mail.fancywork.ui.primary.AuthActivity">
+        <activity android:name=".ui.primary.ShowcaseActivity"></activity>
+        <activity android:name=".ui.primary.WorkspaceActivity" />
+        <activity android:name=".ui.primary.MainActivity" />
+        <activity android:name=".ui.primary.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
