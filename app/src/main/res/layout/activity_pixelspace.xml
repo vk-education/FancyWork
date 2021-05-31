@@ -101,6 +101,7 @@
             <Button
                     android:layout_margin="5dp"
                     android:text="Process"
+                    android:onClick="process"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -109,6 +110,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Save"
+                    android:onClick="save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

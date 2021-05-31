@@ -29,6 +29,10 @@ class AuthRepository(private val auth: FirebaseAuth = FirebaseAuth.getInstance()
         FirebaseAuth.getInstance().signOut()
     }
 
+    fun getUid(): String {
+        return auth.currentUser!!.uid
+    }
+
     companion object {
         const val AUTH_ERROR = "The user isn't authorized"
         private const val TAG = "FirebaseRepository"

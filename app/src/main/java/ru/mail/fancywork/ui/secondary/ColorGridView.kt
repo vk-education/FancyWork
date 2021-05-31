@@ -17,7 +17,7 @@ class ColorGridView @JvmOverloads constructor(
         return view
     }
 
-    fun setImage(bitmap: Bitmap) {
+    fun setImage(bitmap: Bitmap, scale: Int) {
         setWillNotDraw(false)
         removeAllViews()
         rowCount = bitmap.height
@@ -28,8 +28,8 @@ class ColorGridView @JvmOverloads constructor(
             for (col in 0 until bitmap.width) {
                 val colSpec = spec(col)
                 val params = LayoutParams(rowSpec, colSpec)
-                params.width = 150
-                params.height = 150
+                params.width = 150/scale
+                params.height = 150/scale
                 val view = createPixel(bitmap[col, row])
                 addView(view, params)
             }
