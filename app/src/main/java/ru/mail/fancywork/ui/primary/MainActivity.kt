@@ -9,15 +9,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
+import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.ui.adapter.FancyworkAdapter
 
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val PICK_IMAGE = 122
+        private const val BITMAP_ANSWER = 9001
         const val BITMAP_MESSAGE = "ru.mail.fancywork.BITMAP_MESSAGE"
+        const val FANCYWORK_MESSAGE = "ru.mail.fancywork.FANCYWORK_MESSAGE"
     }
 
     private val controller = Controller()
+    private val fullEmbroideryList = ArrayList<Fancywork>()
+    private val fancyworkAdapter = FancyworkAdapter(fullEmbroideryList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,24 +42,26 @@ class MainActivity : AppCompatActivity() {
             }
 
         val rv: RecyclerView = findViewById(R.id.embroidery_list)
-        var ar: ArrayList<Int> = ArrayList()
-        ar.add(6)
-        ar.add(5)
-        ar.add(4)
-        var adapter = FancyworkAdapter(ar)
+        val ar = fullEmbroideryList
+        ar.add(Fancywork("Вышивка 1", "", 6, 6, 5))
+        ar.add(Fancywork("Вышивка 2", "", 5, 5, 10))
+        ar.add(Fancywork("Вышивка 3", "", 4, 4, 15))
 
-        rv.adapter = adapter
+        rv.adapter = fancyworkAdapter
         rv.layoutManager = LinearLayoutManager(this.applicationContext)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK || data == null) return
 
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
-
-            startActivity(Intent(this, WorkspaceActivity::class.java).apply {
+        if (requestCode == PICK_IMAGE) {
+            startActivityForResult(Intent(this, WorkspaceActivity::class.java).apply {
                 putExtra(BITMAP_MESSAGE, data.data)
-            })
+            }, BITMAP_ANSWER)
+        } else if (requestCode == BITMAP_ANSWER) {
+            fullEmbroideryList.add(data.getParcelableExtra(FANCYWORK_MESSAGE)!!)
+            fancyworkAdapter.notifyDataSetChanged()
         }
     }
 

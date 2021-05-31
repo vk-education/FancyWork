@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.mail.fancywork.databinding.ViewFancyworkBinding
+import ru.mail.fancywork.model.datatype.Fancywork
 
 class FancyworkAdapter(
-    private var worksList: List<Int>
+    private var worksList: List<Fancywork>
 ) : RecyclerView.Adapter<FancyworkAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ViewFancyworkBinding) :
@@ -22,12 +23,14 @@ class FancyworkAdapter(
 
         with(holder) {
             with(worksList[position]) {
-                binding.name.text = "ВЫЩЩЩИВКА"
+                binding.name.text = title
                 binding.difficulty.rating = 4F
-                var str =
-                    "размер: " + this + "x" + this + "\nцветов: 5"
 
-                binding.info.text = str
+                binding.info.text = "размер ${width}x$height\nцветов: $colors"
+
+                if (bitmap != null) {
+                    binding.image.setImageBitmap(bitmap)
+                }
 
 //                binding.cardLayout.setOnClickListener {
 //                    //todo открываем активити просмотра

@@ -49,5 +49,9 @@ class Controller(
         return Bitmap.createScaledBitmap(bitmap, width, height, false)
     }
 
+    suspend fun getFancyworks(): List<Fancywork>? {
+        return fs.getFancyworks(auth.getUid())
+    }
+
     fun isAuthorized(): Boolean = auth.isAuthorized()
 }

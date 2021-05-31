@@ -1,5 +1,7 @@
 package ru.mail.fancywork.ui.primary
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -9,11 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.slider.Slider
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
-import ru.mail.fancywork.model.datatype.Fancywork
-import ru.mail.fancywork.model.repo.AuthRepository
-import ru.mail.fancywork.model.repo.CloudStorageRepository
-import ru.mail.fancywork.model.repo.FirestoreRepository
-import ru.mail.fancywork.model.repo.PixelizationRepository
 import ru.mail.fancywork.ui.secondary.ColorGridView
 
 class WorkspaceActivity : AppCompatActivity() {
@@ -31,7 +28,10 @@ class WorkspaceActivity : AppCompatActivity() {
     fun save(view: View) {
         pixelate()
         // todo prompt for name
-        controller.addEmbroidery(pixelatedBitmap, colors)
+        val res = controller.addEmbroidery(pixelatedBitmap, colors)
+        setResult(Activity.RESULT_OK, Intent().apply {
+            putExtra(MainActivity.FANCYWORK_MESSAGE, res)
+        })
         finish()
     }
 
@@ -40,7 +40,7 @@ class WorkspaceActivity : AppCompatActivity() {
     }
 
     private fun pixelate() {
-        if(!isDirty)return
+        if (!isDirty) return
         isDirty = false
 
         val ratio = originalBitmap.width / originalBitmap.height.toFloat()
