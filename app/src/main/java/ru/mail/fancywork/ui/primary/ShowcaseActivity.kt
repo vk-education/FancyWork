@@ -3,8 +3,14 @@ package ru.mail.fancywork.ui.primary
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.android.synthetic.main.activity_showcase.*
+import kotlinx.android.synthetic.main.activity_workspace.*
+import kotlinx.coroutines.launch
 import ru.mail.fancywork.R
+import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.ui.secondary.ColorGridView
 import kotlin.math.min
@@ -15,6 +21,7 @@ class ShowcaseActivity : AppCompatActivity() {
         const val FANCYWORK_MESSAGE = "ru.mail.fancywork.FANCYWORK_MESSAGE"
     }
 
+    private val controller = Controller()
     private lateinit var fancywork: Fancywork
     private lateinit var bitmap: Bitmap
     private lateinit var colorGridView: ColorGridView
@@ -33,7 +40,15 @@ class ShowcaseActivity : AppCompatActivity() {
             bitmap = bmp
             colorGridView.setImage(bitmap, min(fancywork.height, fancywork.width))
         } else {
-            // todo download bitmap
+            showcase_pb.visibility = View.VISIBLE
+            showcase_view.visibility = View.VISIBLE
+            lifecycleScope.launch {
+                bitmap = controller.downloadImage(fancywork.image_path)
+                fancywork.bitmap = bitmap
+                colorGridView.setImage(bitmap, min(fancywork.height, fancywork.width))
+                showcase_pb.visibility = View.INVISIBLE
+                showcase_view.visibility = View.INVISIBLE
+            }
         }
     }
 

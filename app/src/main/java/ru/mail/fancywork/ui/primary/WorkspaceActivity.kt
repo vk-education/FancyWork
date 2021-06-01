@@ -12,6 +12,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
+import kotlinx.android.synthetic.main.activity_workspace.*
 import kotlinx.coroutines.launch
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
@@ -89,9 +90,16 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.save_button -> {
                 pixelate()
-                // todo prompt for name
                 lifecycleScope.launch {
-                    val result = controller.addEmbroidery(pixelatedBitmap, colors)
+                    workspace_pb.visibility = View.VISIBLE
+                    workspace_view.visibility = View.VISIBLE
+                    val result = controller.addFancywork(
+                        pixelatedBitmap,
+                        colors,
+                        fancywork_title.text.toString()
+                    )
+                    workspace_pb.visibility = View.INVISIBLE
+                    workspace_view.visibility = View.INVISIBLE
                     setResult(Activity.RESULT_OK, Intent().apply {
                         putExtra(MainActivity.FANCYWORK_MESSAGE, result)
                     })

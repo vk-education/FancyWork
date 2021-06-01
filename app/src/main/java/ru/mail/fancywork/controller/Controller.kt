@@ -35,10 +35,16 @@ class Controller(
         return cloud.downloadImage(path)
     }
 
-    suspend fun addEmbroidery(bitmap: Bitmap, colors: Int, title: String = "Безымянный.png"): Fancywork {
+    suspend fun addFancywork(
+        bitmap: Bitmap,
+        colors: Int,
+        title: String = "Undefined"
+    ): Fancywork {
+        val state = cloud.uploadImage(bitmap)
         val fancywork = Fancywork(
             title,
-            cloud.uploadImage(bitmap),
+            state.image_url,
+            state.image_path,
             bitmap.width,
             bitmap.height,
             colors,
@@ -56,11 +62,7 @@ class Controller(
     suspend fun getFancyworks(): List<Fancywork>? {
         val fancyworks = fs.getFancyworks(auth.getUid())
         if (fancyworks != null) {
-            return fancyworks.map {
-//                it.bitmap = downloadImage(it.image_url)
-                it.bitmap = null
-                it
-            }
+            return fancyworks
         }
         return fancyworks
     }

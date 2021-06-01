@@ -57,15 +57,37 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
 
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/title_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Image Title:"
+                app:boxBackgroundColor="@color/lightBackground"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">>
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fancywork_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fancywork"
+                    android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
-                android:text="Масштаб"
+                android:text="Scale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/scale_text"
                 android:textSize="20sp"
                 android:fontFamily="@font/roboto_slab"
                 android:textColor="@color/black"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/scaleSlider"
                 app:layout_constraintBottom_toBottomOf="@id/scaleSlider" />
@@ -81,12 +103,12 @@
                 app:tickColor="@color/black"
                 app:thumbColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_field"
                 app:layout_constraintStart_toEndOf="@+id/scale_text" />
 
 
         <TextView
-                android:text="Цвета"
+                android:text="Colors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/color_text"
@@ -138,5 +160,22 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+            android:id="@+id/workspace_pb"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+            android:id="@+id/workspace_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="#6A989898"
+            android:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

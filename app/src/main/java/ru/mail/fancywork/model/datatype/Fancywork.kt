@@ -9,6 +9,7 @@ import kotlinx.android.parcel.Parcelize
 data class Fancywork(
     val title: String,
     val image_url: String,
+    val image_path: String,
     val width: Int,
     val height: Int,
     val colors: Int,
@@ -20,7 +21,7 @@ data class Fancywork(
 ) : Parcelable {
 
     constructor() : this(
-        "", "", 0, 0, 0,
+        "", "", "",0, 0, 0,
         "", "", Difficulty.UNDEFINED, null
     )
 }
