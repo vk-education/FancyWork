@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.mail.fancywork.R
 import ru.mail.fancywork.databinding.ViewFancyworkBinding
 import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.ui.primary.MainActivity
@@ -35,7 +36,11 @@ class FancyworkAdapter(
                 if (bitmap != null) {
                     binding.image.setImageBitmap(bitmap)
                 } else {
-                    Glide.with(itemView.context).load(Uri.parse(image_url)).into(binding.image)
+                    Glide.with(itemView.context).load(Uri.parse(image_url)).centerCrop()
+                        .placeholder(R.drawable.ic_embroidery_colored)
+                        .error(R.drawable.ic_broken_image)
+                        .fallback(R.drawable.ic_embroidery)
+                        .into(binding.image)
                 }
                 binding.layout.setOnClickListener {
                     itemView.context.startActivity(
