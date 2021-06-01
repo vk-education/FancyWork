@@ -6,13 +6,17 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
+import kotlinx.coroutines.launch
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.ui.secondary.ColorGridView
+
 
 class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
     private val controller = Controller()
@@ -49,6 +53,8 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
 
         findViewById<Button>(R.id.save_button).setOnClickListener(this)
         findViewById<Button>(R.id.process_button).setOnClickListener(this)
+        setSupportActionBar(findViewById(R.id.top_bar))
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         colorGridView = findViewById(R.id.color_grid_view)
         scaleSlider = findViewById(R.id.scaleSlider)
@@ -69,16 +75,28 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
         pixelate()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.save_button -> {
                 pixelate()
                 // todo prompt for name
-                val result = controller.addEmbroidery(pixelatedBitmap, colors)
-                setResult(Activity.RESULT_OK, Intent().apply {
-                    putExtra(MainActivity.FANCYWORK_MESSAGE, result)
-                })
-                finish()
+                lifecycleScope.launch {
+                    val result = controller.addEmbroidery(pixelatedBitmap, colors)
+                    setResult(Activity.RESULT_OK, Intent().apply {
+                        putExtra(MainActivity.FANCYWORK_MESSAGE, result)
+                    })
+                    finish()
+                }
             }
             R.id.process_button -> {
                 pixelate()

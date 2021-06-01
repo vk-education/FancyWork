@@ -1,9 +1,11 @@
 package ru.mail.fancywork.ui.adapter
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.mail.fancywork.databinding.ViewFancyworkBinding
 import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.ui.primary.MainActivity
@@ -28,11 +30,12 @@ class FancyworkAdapter(
             with(worksList[position]) {
                 binding.name.text = title
                 binding.difficulty.rating = 4F
-                binding.colorText.text = "Цветов: $colors"
-                binding.sizeText.text = "Размер: ${width} x $height"
-
+                binding.colorText.text = "Colors: $colors"
+                binding.sizeText.text = "Size: ${width} x $height"
                 if (bitmap != null) {
                     binding.image.setImageBitmap(bitmap)
+                } else {
+                    Glide.with(itemView.context).load(Uri.parse(image_url)).into(binding.image)
                 }
                 binding.layout.setOnClickListener {
                     itemView.context.startActivity(

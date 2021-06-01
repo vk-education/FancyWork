@@ -6,6 +6,26 @@
         android:layout_height="match_parent"
         tools:context="ru.mail.fancywork.ui.primary.WorkspaceActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/secondaryColor"
+            android:theme="@style/ToolbarStyleLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+                app:title="Fancywork Workspace"
+                android:theme="@style/ToolbarStyleLight"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:hapticFeedbackEnabled="false" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.otaliastudios.zoom.ZoomLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -16,7 +36,7 @@
             app:horizontalPanEnabled="true"
             app:verticalPanEnabled="true"
             app:zoomEnabled="true"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_bar_layout"
             app:layout_constraintBottom_toTopOf="@id/control_panel"
             android:id="@+id/zoomLayout">
 
@@ -42,12 +62,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/scale_text"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/roboto_slab"
                 android:textColor="@color/black"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/scaleSlider"
-                app:layout_constraintBottom_toBottomOf="@id/scaleSlider"/>
+                app:layout_constraintBottom_toBottomOf="@id/scaleSlider" />
 
         <com.google.android.material.slider.Slider
                 android:layout_width="0dp"
@@ -69,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/color_text"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/roboto_slab"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="@id/scale_text"
@@ -104,7 +125,7 @@
                     android:text="Process"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             <Button
                     android:id="@+id/save_button"
@@ -112,7 +133,7 @@
                     android:layout_weight="1"
                     android:text="Save"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
         </LinearLayout>
 

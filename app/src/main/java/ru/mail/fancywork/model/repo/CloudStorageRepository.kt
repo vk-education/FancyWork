@@ -15,14 +15,15 @@ class CloudStorageRepository(private val cs: StorageReference = FirebaseStorage.
 
     var imageRef: StorageReference = cs.child("images")
 
-    fun uploadImage(bitmap: Bitmap): String {
+    suspend fun uploadImage(bitmap: Bitmap): String {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, baos)
         val data = baos.toByteArray()
 
         val reference = imageRef.child("${UUID.randomUUID()}.png")
         reference.putBytes(data)
-        return reference.path
+        return reference.downloadUrl.await().toString()
+//        return reference.path
     }
 
     suspend fun downloadImage(path: String): Bitmap {

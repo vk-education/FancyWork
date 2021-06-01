@@ -19,6 +19,7 @@
 
 
         <androidx.appcompat.widget.Toolbar
+                app:title="Fancywork List"
                 android:theme="@style/ToolbarStyleLight"
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"

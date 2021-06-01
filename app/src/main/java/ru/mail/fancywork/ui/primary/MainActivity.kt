@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         findViewById<SwipeRefreshLayout>(R.id.refresh).setOnRefreshListener {
-            refresh()
+            // TODO: soon it should be calling to refresh recyclerview. By now, it works fine without it.
+            // refresh()
             findViewById<SwipeRefreshLayout>(R.id.refresh).isRefreshing = false
         }
 

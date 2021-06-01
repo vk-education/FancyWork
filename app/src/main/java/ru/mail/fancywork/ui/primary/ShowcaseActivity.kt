@@ -2,6 +2,7 @@ package ru.mail.fancywork.ui.primary
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import ru.mail.fancywork.R
 import ru.mail.fancywork.model.datatype.Fancywork
@@ -22,11 +23,8 @@ class ShowcaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_showcase)
 
-        // form MainActivity:
-        // startActivity(Intent(this, ShowcaseActivity::class.java).apply {
-        //     putExtra(FANCYWORK_MESSAGE, fullEmbroideryList[0])
-        // })
-
+        setSupportActionBar(findViewById(R.id.top_bar))
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         colorGridView = findViewById(R.id.color_grid_view)
 
         fancywork = intent.getParcelableExtra(FANCYWORK_MESSAGE)!!
@@ -36,6 +34,16 @@ class ShowcaseActivity : AppCompatActivity() {
             colorGridView.setImage(bitmap, min(fancywork.height, fancywork.width))
         } else {
             // todo download bitmap
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
