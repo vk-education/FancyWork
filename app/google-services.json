@@ -7,35 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:81386746881:android:32eaa21779dab111ae7c00",
-        "android_client_info": {
-          "package_name": "com.example.fancywork"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "81386746881-cbo9nf64r0aa4p9cdne3ifmk3dod3qeq.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDYnEaj8Z5RwvpvxnoGhKWRbYsjjTQFBPM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "81386746881-cbo9nf64r0aa4p9cdne3ifmk3dod3qeq.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:81386746881:android:524b8c0be172058cae7c00",
         "android_client_info": {
           "package_name": "ru.mail.fancywork"
@@ -43,11 +14,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "81386746881-dk45rtejfiofncp0j8l630nu9jcvkute.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.mail.fancywork",
+            "certificate_hash": "a4ac2ae90c96ec5c53af2411456dd6030d4d8d2d"
+          }
+        },
+        {
           "client_id": "81386746881-hmrh95t5tsuc8r2enish7ofqd3jun7f4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "ru.mail.fancywork",
             "certificate_hash": "9ef8efbaea65af2b8b481b5dc4baa3dc6e0b9a25"
+          }
+        },
+        {
+          "client_id": "81386746881-l4kp894885169k1vevhg54ib2os08hqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.mail.fancywork",
+            "certificate_hash": "0f674987b83439c1a249f9a5fe082bd3a86ef5e9"
+          }
+        },
+        {
+          "client_id": "81386746881-v26lcm6ss9uilv4ks1r2ohfmao59684i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.mail.fancywork",
+            "certificate_hash": "1177f57bd49a5c52470b94032dad589628dd7677"
           }
         },
         {

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ru.mail.fancywork.ui.primary.WorkspaceActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/secondaryColor"
+            android:theme="@style/ToolbarStyleLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+                app:title="Fancywork Workspace"
+                android:theme="@style/ToolbarStyleLight"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:hapticFeedbackEnabled="false" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.otaliastudios.zoom.ZoomLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="horizontal|vertical"
+            android:background="@color/white"
+            app:hasClickableChildren="true"
+            app:horizontalPanEnabled="true"
+            app:verticalPanEnabled="true"
+            app:zoomEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/top_bar_layout"
+            app:layout_constraintBottom_toTopOf="@id/control_panel"
+            android:id="@+id/zoomLayout">
+
+        <ru.mail.fancywork.ui.secondary.ColorGridView
+                android:id="@+id/color_grid_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+    </com.otaliastudios.zoom.ZoomLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="5dp"
+            android:background="@color/lightBackground"
+            android:id="@+id/control_panel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/title_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Image Title:"
+                app:boxBackgroundColor="@color/lightBackground"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">>
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fancywork_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fancywork"
+                    android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:text="Scale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scale_text"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_slab"
+                android:textColor="@color/black"
+                android:layout_marginStart="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/scaleSlider"
+                app:layout_constraintBottom_toBottomOf="@id/scaleSlider" />
+
+        <com.google.android.material.slider.Slider
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/scaleSlider"
+                android:valueFrom="10"
+                android:valueTo="100"
+                android:stepSize="1"
+                app:trackColor="@color/secondaryDarkColor"
+                app:tickColor="@color/black"
+                app:thumbColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_field"
+                app:layout_constraintStart_toEndOf="@+id/scale_text" />
+
+
+        <TextView
+                android:text="Colors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/color_text"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_slab"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/scale_text"
+                app:layout_constraintBottom_toBottomOf="@id/colorSlider"
+                app:layout_constraintTop_toTopOf="@+id/colorSlider" />
+
+        <com.google.android.material.slider.Slider
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorSlider"
+                android:valueFrom="2"
+                android:valueTo="10"
+                android:stepSize="1"
+                app:trackColor="@color/secondaryDarkColor"
+                app:tickColor="@color/black"
+                app:thumbColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scaleSlider"
+                app:layout_constraintStart_toEndOf="@+id/color_text" />
+
+        <LinearLayout
+                android:id="@+id/button_panel"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/colorSlider">
+
+            <Button
+                    android:id="@+id/process_button"
+                    android:layout_margin="5dp"
+                    android:text="Process"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            <Button
+                    android:id="@+id/save_button"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+            android:id="@+id/workspace_pb"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+            android:id="@+id/workspace_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="#6A989898"
+            android:visibility="invisible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

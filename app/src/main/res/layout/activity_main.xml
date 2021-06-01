@@ -7,82 +7,64 @@
         tools:context="ru.mail.fancywork.ui.primary.MainActivity"
         android:theme="@style/Theme.FancyWork">
 
-<!--    <TextView-->
-<!--            android:layout_width="255dp"-->
-<!--            android:layout_height="256dp"-->
-<!--            android:text="@string/fancy_string"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.033"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Display3"-->
-<!--            android:id="@+id/textView"-->
-<!--            app:layout_constraintHorizontal_bias="0.134" />-->
-
-<!--    <Button-->
-<!--            android:id="@+id/button_login_google"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="65dp"-->
-<!--            android:onClick="loginGoogle"-->
-<!--            android:text="@string/google"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="12sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.173"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.961" />-->
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/secondaryColor"
+            android:theme="@style/ToolbarStyleLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
-<!--    <Button-->
-<!--            android:id="@+id/button_login_without_google"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="65dp"-->
-<!--            android:text="@string/without_google"-->
-<!--            android:onClick="loginWithoutGoogle"-->
-<!--            android:textSize="12sp"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.961"-->
-<!--            app:layout_constraintHorizontal_bias="0.893" />-->
+        <androidx.appcompat.widget.Toolbar
+                app:title="Fancywork List"
+                android:theme="@style/ToolbarStyleLight"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/top_main_actionbar"
+                android:hapticFeedbackEnabled="false" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-<!--    <ImageView-->
-<!--            android:layout_width="374dp"-->
-<!--            android:layout_height="315dp"-->
-<!--            app:srcCompat="@drawable/main_pic"-->
-<!--            android:id="@+id/imageView"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.567"-->
-<!--            app:layout_constraintVertical_bias="0.437" />-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_bar_layout">
 
-<!--    <ImageView-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="95dp"-->
-<!--            app:srcCompat="@drawable/open_pic"-->
-<!--            android:id="@+id/imageView2"-->
-<!--            android:backgroundTint="@color/background"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.171"-->
-<!--            app:layout_constraintVertical_bias="0.849" />-->
+        <androidx.recyclerview.widget.RecyclerView
+                android:paddingHorizontal="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="80dp"
+                android:id="@+id/embroidery_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_fancywork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/secondaryColor"
+                android:contentDescription="Add Transaction"
+                android:elevation="0dp"
+                android:src="@drawable/ic_add"
+                app:elevation="0dp"
+                app:tint="@null" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

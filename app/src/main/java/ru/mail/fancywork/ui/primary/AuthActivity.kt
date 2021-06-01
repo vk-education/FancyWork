@@ -1,4 +1,4 @@
-package ru.mail.fancywork.ui.auth
+package ru.mail.fancywork.ui.primary
 
 import android.app.Activity
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
-import ru.mail.fancywork.ui.primary.MainActivity
 
 class AuthActivity : AppCompatActivity(), View.OnClickListener {
     private val controller = Controller()
@@ -18,7 +17,7 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         if (controller.isAuthorized()) {
-//            controller.addUser()
+            controller.addUser()
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -33,7 +32,7 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
             RC_SIGN_IN -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-//                        controller.addUser()
+                        controller.addUser()
                         startActivity(Intent(this, MainActivity::class.java))
                     }
                     else -> Toast.makeText(
