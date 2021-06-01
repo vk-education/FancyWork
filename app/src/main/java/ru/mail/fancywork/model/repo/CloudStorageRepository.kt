@@ -26,7 +26,7 @@ class CloudStorageRepository(private val cs: StorageReference = FirebaseStorage.
     }
 
     suspend fun downloadImage(path: String): Bitmap {
-        val data = imageRef.child(path).getBytes(maxImageSize).await()
+        val data = cs.child(path).getBytes(maxImageSize).await()
         return BitmapFactory.decodeByteArray(data, 0, data.size)
     }
 }

@@ -10,6 +10,10 @@ import kotlin.math.min
 
 class ShowcaseActivity : AppCompatActivity() {
 
+    companion object {
+        const val FANCYWORK_MESSAGE = "ru.mail.fancywork.FANCYWORK_MESSAGE"
+    }
+
     private lateinit var fancywork: Fancywork
     private lateinit var bitmap: Bitmap
     private lateinit var colorGridView: ColorGridView
@@ -25,7 +29,7 @@ class ShowcaseActivity : AppCompatActivity() {
 
         colorGridView = findViewById(R.id.color_grid_view)
 
-        fancywork = intent.getParcelableExtra(MainActivity.FANCYWORK_MESSAGE)!!
+        fancywork = intent.getParcelableExtra(FANCYWORK_MESSAGE)!!
         val bmp = fancywork.bitmap
         if (bmp != null) {
             bitmap = bmp

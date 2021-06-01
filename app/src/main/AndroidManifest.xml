@@ -9,7 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.FancyWork">
-        <activity android:name=".ui.primary.ShowcaseActivity"></activity>
+        <activity android:name=".ui.primary.ShowcaseActivity" />
         <activity android:name=".ui.primary.WorkspaceActivity" />
         <activity android:name=".ui.primary.MainActivity" />
         <activity android:name=".ui.primary.AuthActivity">

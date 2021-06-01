@@ -14,19 +14,13 @@ data class Fancywork(
     val colors: Int,
     var document_id: String = "",
     var author: String = "unknown",
-    var difficulty: Difficulty = Difficulty.UNDEFINED
+    var difficulty: Difficulty = Difficulty.UNDEFINED,
+    @Exclude
+    var bitmap: Bitmap? = null
 ) : Parcelable {
 
     constructor() : this(
         "", "", 0, 0, 0,
-        "", "", Difficulty.UNDEFINED
+        "", "", Difficulty.UNDEFINED, null
     )
-
-    @Exclude
-    var bitmap: Bitmap? = null
-
-    suspend fun downloadImage() {
-        if (bitmap != null) return
-        // todo
-    }
 }

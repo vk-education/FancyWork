@@ -1,10 +1,13 @@
 package ru.mail.fancywork.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.mail.fancywork.databinding.ViewFancyworkBinding
 import ru.mail.fancywork.model.datatype.Fancywork
+import ru.mail.fancywork.ui.primary.MainActivity
+import ru.mail.fancywork.ui.primary.ShowcaseActivity
 
 class FancyworkAdapter(
     private var worksList: List<Fancywork>
@@ -31,11 +34,15 @@ class FancyworkAdapter(
                 if (bitmap != null) {
                     binding.image.setImageBitmap(bitmap)
                 }
-
-//                binding.cardLayout.setOnClickListener {
-//                    //todo открываем активити просмотра
-//                    notifyDataSetChanged()
-//                }
+                binding.layout.setOnClickListener {
+                    itemView.context.startActivity(
+                        Intent(
+                            itemView.context,
+                            ShowcaseActivity::class.java
+                        ).apply {
+                            putExtra(MainActivity.FANCYWORK_MESSAGE, worksList[position])
+                        })
+                }
             }
         }
     }

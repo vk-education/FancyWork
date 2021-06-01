@@ -31,6 +31,10 @@ class Controller(
         auth.logOut()
     }
 
+    suspend fun downloadImage(path: String): Bitmap {
+        return cloud.downloadImage(path)
+    }
+
     fun addEmbroidery(bitmap: Bitmap, colors: Int, title: String = "Безымянный.png"): Fancywork {
         val fancywork = Fancywork(
             title,
@@ -50,7 +54,14 @@ class Controller(
     }
 
     suspend fun getFancyworks(): List<Fancywork>? {
-        return fs.getFancyworks(auth.getUid())
+        val fancyworks = fs.getFancyworks(auth.getUid())
+        if (fancyworks != null) {
+            return fancyworks.map {
+                it.bitmap = downloadImage(it.image_url)
+                it
+            }
+        }
+        return fancyworks
     }
 
     fun isAuthorized(): Boolean = auth.isAuthorized()

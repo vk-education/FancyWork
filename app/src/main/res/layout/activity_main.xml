@@ -38,12 +38,13 @@
             app:layout_constraintTop_toBottomOf="@+id/top_bar_layout">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:padding="4dp"
+                android:paddingHorizontal="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="80dp"
                 android:id="@+id/embroidery_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingBottom="60dp" />
+                android:clipToPadding="false" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
