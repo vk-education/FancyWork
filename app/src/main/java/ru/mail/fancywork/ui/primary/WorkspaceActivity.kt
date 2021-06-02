@@ -50,7 +50,7 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workspace)
 
-        threadColors = PixelizationRepository.getThreadColors(resources)
+        threadColors = controller.initThreadColors(resources)
 
         val uri = intent.getParcelableExtra<Uri>(MainActivity.BITMAP_MESSAGE)!!
         val inputStream = this.applicationContext.contentResolver.openInputStream(uri)

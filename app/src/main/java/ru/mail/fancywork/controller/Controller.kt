@@ -1,6 +1,7 @@
 package ru.mail.fancywork.controller
 
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.model.repo.AuthRepository
@@ -52,6 +53,10 @@ class Controller(
         fs.addFancywork(fancywork, auth.getUid())
         fancywork.bitmap = bitmap
         return fancywork
+    }
+
+    fun initThreadColors(resources: Resources): List<Pair<String, Triple<Int, Int, Int>>> {
+        return PixelizationRepository.getThreadColors(resources)
     }
 
     fun pixelate(
