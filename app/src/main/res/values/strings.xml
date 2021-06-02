@@ -7,4 +7,5 @@
     <string name="without_google">войти без Google аккаунта</string>
     <string name="google">войти через Google аккаунт</string>
     <string name="info">размер: %dх%d\nцветов: %d</string>
+    <string name="share">Share</string>
 </resources>
