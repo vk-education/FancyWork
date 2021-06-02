@@ -1,7 +1,11 @@
 package ru.mail.fancywork.ui.primary
 
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -14,6 +18,10 @@ import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.ui.secondary.ColorGridView
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.lang.Exception
 import kotlin.math.min
 
 class ShowcaseActivity : AppCompatActivity() {
@@ -61,6 +69,23 @@ class ShowcaseActivity : AppCompatActivity() {
             android.R.id.home -> {
                 finish()
                 true
+            }
+            R.id.share -> {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "image/png"
+                val file = File(externalCacheDir, "temporary_file.png")
+                try {
+                    if (!file.exists())
+                        file.createNewFile()
+                    val out = FileOutputStream(file)
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                    out.close()
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
+                    startActivity(Intent.createChooser(intent, "Share image"))
+                    true
+                } catch (e: Exception) {
+                    false
+                }
             }
             else -> super.onOptionsItemSelected(item)
         }
