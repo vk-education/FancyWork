@@ -56,7 +56,7 @@ class Controller(
     }
 
     fun initThreadColors(resources: Resources): List<Pair<String, Triple<Int, Int, Int>>> {
-        return PixelizationRepository.getThreadColors(resources)
+        return pixel.getThreadColors(resources)
     }
 
     suspend fun pixelate(
@@ -66,7 +66,7 @@ class Controller(
         colors: Int,
         threadColors: List<Pair<String, Triple<Int, Int, Int>>>
     ): Bitmap {
-        return PixelizationRepository.getPixelsFromImage(
+        return pixel.getPixelsFromImage(
             bitmap,
             bitmap.width / width,
             colors,
