@@ -4,6 +4,8 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import io.uuddlrlrba.closepixelate.Pixelate
 import io.uuddlrlrba.closepixelate.PixelateLayer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.mail.fancywork.R
 import ru.mail.fancywork.model.datatype.MutablePair
 import ru.mail.fancywork.model.datatype.MutableTriple
@@ -27,12 +29,12 @@ class PixelizationRepository {
         }
 
         // This method makes a pixelated bitmap from image bitmap and provides an array of thread codes.
-        fun getPixelsFromImage(
+        suspend fun getPixelsFromImage(
             bitmap: Bitmap,
             pixelSize: Int,
             colorsCount: Int,
             colors: List<Pair<String, Triple<Int, Int, Int>>>):
-                Pair<Bitmap, Array<Array<String?>>> {
+                Pair<Bitmap, Array<Array<String?>>> = withContext(Dispatchers.IO){
             val mainColors = kmeans(bitmap, colorsCount, colors)
             val pixelatedBitmap = Pixelate.fromBitmap(
                 bitmap,
@@ -59,7 +61,7 @@ class PixelizationRepository {
                 }
             val resultBitmap =
                 Bitmap.createBitmap(bitmapColors, pixelatedWidth, pixelatedHeight, Bitmap.Config.RGB_565)
-            return resultBitmap to threadCodes
+            return@withContext resultBitmap to threadCodes
         }
 
         private fun colorToTriple(color: Int): MutableTriple<Int, Int, Int> {

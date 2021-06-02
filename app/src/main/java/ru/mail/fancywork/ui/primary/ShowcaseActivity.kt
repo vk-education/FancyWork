@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_showcase.*
@@ -40,6 +41,8 @@ class ShowcaseActivity : AppCompatActivity() {
             bitmap = bmp
             colorGridView.setImage(bitmap, min(fancywork.height, fancywork.width))
         } else {
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             showcase_pb.visibility = View.VISIBLE
             showcase_view.visibility = View.VISIBLE
             lifecycleScope.launch {
@@ -48,6 +51,7 @@ class ShowcaseActivity : AppCompatActivity() {
                 colorGridView.setImage(bitmap, min(fancywork.height, fancywork.width))
                 showcase_pb.visibility = View.INVISIBLE
                 showcase_view.visibility = View.INVISIBLE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         }
     }

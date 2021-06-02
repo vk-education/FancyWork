@@ -59,7 +59,7 @@ class Controller(
         return PixelizationRepository.getThreadColors(resources)
     }
 
-    fun pixelate(
+    suspend fun pixelate(
         bitmap: Bitmap,
         width: Int,
         height: Int,

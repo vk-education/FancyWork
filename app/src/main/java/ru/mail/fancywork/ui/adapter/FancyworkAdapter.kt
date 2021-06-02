@@ -32,9 +32,14 @@ class FancyworkAdapter(
                 binding.name.text = title
                 binding.difficulty.rating = 4F
                 binding.colorText.text = "Colors: $colors"
-                binding.sizeText.text = "Size: ${width} x $height"
+                binding.sizeText.text = "Size: $width x $height"
                 if (bitmap != null) {
-                    binding.image.setImageBitmap(bitmap)
+//                    binding.image.setImageBitmap(bitmap)
+                    Glide.with(itemView.context).asBitmap().load(bitmap).centerCrop()
+                        .placeholder(R.drawable.ic_embroidery_colored)
+                        .error(R.drawable.ic_broken_image)
+                        .fallback(R.drawable.ic_embroidery)
+                        .into(binding.image)
                 } else {
                     Glide.with(itemView.context).load(Uri.parse(image_url)).centerCrop()
                         .placeholder(R.drawable.ic_embroidery_colored)
