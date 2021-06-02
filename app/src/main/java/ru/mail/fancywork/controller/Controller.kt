@@ -66,8 +66,12 @@ class Controller(
         colors: Int,
         threadColors: List<Pair<String, Triple<Int, Int, Int>>>
     ): Bitmap {
-        // todo (needs better pixelRepo)
-        return Bitmap.createScaledBitmap(bitmap, width, height, false)
+        return PixelizationRepository.getPixelsFromImage(
+            bitmap,
+            bitmap.width / width,
+            colors,
+            threadColors
+        ).first
     }
 
     suspend fun getFancyworks(): List<Fancywork>? {
