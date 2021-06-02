@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_workspace.*
 import kotlinx.coroutines.launch
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
+import ru.mail.fancywork.model.repo.PixelizationRepository
 import ru.mail.fancywork.ui.secondary.ColorGridView
 
 
@@ -27,6 +28,7 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var colorGridView: ColorGridView
     private lateinit var scaleSlider: Slider
     private lateinit var colorSlider: Slider
+    private lateinit var threadColors: List<Pair<String, Triple<Int, Int, Int>>>
     private var scale = 25
     private var colors = 5
     private var isDirty = true
@@ -40,13 +42,15 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
         val width = if (isVertical) (scale * ratio).toInt() else scale
         val height = if (isVertical) scale else (scale / ratio).toInt()
 
-        pixelatedBitmap = controller.pixelate(originalBitmap, width, height, colors)
+        pixelatedBitmap = controller.pixelate(originalBitmap, width, height, colors, threadColors)
         colorGridView.setImage(pixelatedBitmap, scale)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workspace)
+
+        threadColors = PixelizationRepository.getThreadColors(resources)
 
         val uri = intent.getParcelableExtra<Uri>(MainActivity.BITMAP_MESSAGE)!!
         val inputStream = this.applicationContext.contentResolver.openInputStream(uri)

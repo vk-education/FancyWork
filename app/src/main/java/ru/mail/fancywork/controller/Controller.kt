@@ -54,7 +54,13 @@ class Controller(
         return fancywork
     }
 
-    fun pixelate(bitmap: Bitmap, width: Int, height: Int, colors: Int): Bitmap {
+    fun pixelate(
+        bitmap: Bitmap,
+        width: Int,
+        height: Int,
+        colors: Int,
+        threadColors: List<Pair<String, Triple<Int, Int, Int>>>
+    ): Bitmap {
         // todo (needs better pixelRepo)
         return Bitmap.createScaledBitmap(bitmap, width, height, false)
     }
