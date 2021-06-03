@@ -5,11 +5,13 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_showcase.*
 import kotlinx.coroutines.launch
@@ -36,9 +38,7 @@ class ShowcaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_showcase)
-        // TODO: FIX SHARE ICON APPEARANCE WITH NAV ICON
-        // setSupportActionBar(findViewById(R.id.top_bar_showcase))
-
+         setSupportActionBar(findViewById(R.id.top_bar_showcase))
         colorGridView = findViewById(R.id.color_grid_view)
         fancywork = intent.getParcelableExtra(FANCYWORK_MESSAGE)!!
         val bmp = fancywork.bitmap
@@ -49,14 +49,25 @@ class ShowcaseActivity : AppCompatActivity() {
                     R.id.share -> {
                         val intent = Intent(Intent.ACTION_SEND)
                         intent.type = "image/png"
-                        val file = File(externalCacheDir, "temporary_file.png")
+                        val directory = File(externalCacheDir, "fancyworks").also {
+                            if (!it.exists())
+                                it.mkdir()
+                        }
                         try {
-                            if (!file.exists())
-                                file.createNewFile()
+                            val file = File(directory, "fancywork.png").also {
+                                if (!it.exists())
+                                    it.createNewFile()
+                            }
                             val out = FileOutputStream(file)
                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
-                            out.close()
-                            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
+                            out.apply {
+                                flush()
+                                close()
+                            }
+                            val path = FileProvider.getUriForFile(this, "ru.mail.fancywork", file)
+                            intent.putExtra(Intent.EXTRA_STREAM, path)
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                             startActivity(Intent.createChooser(intent, "Share image"))
                             true
                         } catch (e: Exception) {
@@ -87,6 +98,11 @@ class ShowcaseActivity : AppCompatActivity() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_showcase_actionbar, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
