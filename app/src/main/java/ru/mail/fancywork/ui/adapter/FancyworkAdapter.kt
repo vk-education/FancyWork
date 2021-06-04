@@ -30,7 +30,8 @@ class FancyworkAdapter(
         with(holder) {
             with(worksList[position]) {
                 binding.name.text = title
-                binding.difficulty.rating = 4F
+                val stars: Float = difficulty.ordinal + 1F
+                binding.difficulty.rating = stars
                 binding.colorText.text = "Colors: $colors"
                 binding.sizeText.text = "Size: $width x $height"
                 if (bitmap != null) {

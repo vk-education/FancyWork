@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import ru.mail.fancywork.model.datatype.Fancywork
+import ru.mail.fancywork.model.datatype.countDifficulty
 import ru.mail.fancywork.model.repo.AuthRepository
 import ru.mail.fancywork.model.repo.CloudStorageRepository
 import ru.mail.fancywork.model.repo.FirestoreRepository
@@ -50,6 +51,7 @@ class Controller(
             bitmap.height,
             colors,
         )
+        fancywork.difficulty = countDifficulty(fancywork)
         fs.addFancywork(fancywork, auth.getUid())
         fancywork.bitmap = bitmap
         return fancywork
