@@ -37,7 +37,7 @@ class FancyworkAdapter(
                 if (bitmap != null) {
                     binding.image.setImageBitmap(bitmap)
                 } else {
-                    Glide.with(itemView.context).load(Uri.parse(image_url)).centerCrop()
+                    Glide.with(itemView.context).load(Uri.parse(imageUrl)).centerCrop()
                         .placeholder(R.drawable.ic_embroidery_colored)
                         .error(R.drawable.ic_broken_image)
                         .fallback(R.drawable.ic_embroidery)
@@ -50,7 +50,8 @@ class FancyworkAdapter(
                             ShowcaseActivity::class.java
                         ).apply {
                             putExtra(MainActivity.FANCYWORK_MESSAGE, worksList[position])
-                        })
+                        }
+                    )
                 }
             }
         }

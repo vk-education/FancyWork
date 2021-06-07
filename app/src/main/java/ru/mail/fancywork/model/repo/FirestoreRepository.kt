@@ -16,31 +16,27 @@ class FirestoreRepository(private val db: FirebaseFirestore = FirebaseFirestore.
             "fancywork_info" to fancywork
         )
         val reference = db.collection("fancyworks").document()
-        fancywork.document_id = reference.id
+        fancywork.documentId = reference.id
         reference.set(document)
     }
 
     suspend fun getFancyworks(owner: String): List<Fancywork>? =
         withContext(Dispatchers.IO) {
-            return@withContext try {
-                val userRef = db.collection("users").document(owner)
-                val data = db.collection("fancyworks")
-                    .whereEqualTo("owner", userRef).get().await()
+            val userRef = db.collection("users").document(owner)
+            val data = db.collection("fancyworks")
+                .whereEqualTo("owner", userRef).get().await()
 
-                val result = ArrayList<Fancywork>()
-                for (document in data.documents) {
-                    if (document != null) {
-                        val fancywork = document.getField<Fancywork>("fancywork_info")!!
-                        fancywork.apply {
-                            document_id = document.id
-                        }
-                        result.add(fancywork)
+            val result = ArrayList<Fancywork>()
+            for (document in data.documents) {
+                if (document != null) {
+                    val fancywork = document.getField<Fancywork>("fancywork_info")!!
+                    fancywork.apply {
+                        documentId = document.id
                     }
+                    result.add(fancywork)
                 }
-                result
-            } catch (e: Exception) {
-                null
             }
+            return@withContext result
         }
 
     fun addUser(user: FirebaseUser) {

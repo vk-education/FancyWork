@@ -13,16 +13,18 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
-import kotlinx.android.synthetic.main.activity_showcase.*
 import kotlinx.android.synthetic.main.activity_workspace.*
 import kotlinx.coroutines.launch
 import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
-import ru.mail.fancywork.model.repo.PixelizationRepository
 import ru.mail.fancywork.ui.secondary.ColorGridView
 
-
 class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
+    companion object {
+        private const val DEFAULT_SCALE = 25
+        private const val DEFAULT_COLORS = 5
+    }
+
     private val controller = Controller()
 
     private lateinit var originalBitmap: Bitmap
@@ -31,8 +33,8 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var scaleSlider: Slider
     private lateinit var colorSlider: Slider
     private lateinit var threadColors: List<Pair<String, Triple<Int, Int, Int>>>
-    private var scale = 25
-    private var colors = 5
+    private var scale = DEFAULT_SCALE
+    private var colors = DEFAULT_COLORS
     private var isDirty = true
 
     private fun pixelate() {
@@ -47,8 +49,10 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
         lifecycleScope.launch {
             workspace_pb.visibility = View.VISIBLE
             workspace_view.visibility = View.VISIBLE
-            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
             pixelatedBitmap =
                 controller.pixelate(originalBitmap, width, height, colors, threadColors)
             colorGridView.setImage(pixelatedBitmap, scale)
@@ -107,8 +111,10 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
             R.id.save_button -> {
                 pixelate()
                 lifecycleScope.launch {
-                    window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                    window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
                     workspace_pb.visibility = View.VISIBLE
                     workspace_view.visibility = View.VISIBLE
                     val result = controller.addFancywork(
@@ -119,9 +125,12 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
                     workspace_pb.visibility = View.INVISIBLE
                     workspace_view.visibility = View.INVISIBLE
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    setResult(Activity.RESULT_OK, Intent().apply {
-                        putExtra(MainActivity.FANCYWORK_MESSAGE, result)
-                    })
+                    setResult(
+                        Activity.RESULT_OK,
+                        Intent().apply {
+                            putExtra(MainActivity.FANCYWORK_MESSAGE, result)
+                        }
+                    )
                     finish()
                 }
             }

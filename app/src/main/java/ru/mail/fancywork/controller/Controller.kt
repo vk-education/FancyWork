@@ -45,8 +45,8 @@ class Controller(
         val state = cloud.uploadImage(bitmap)
         val fancywork = Fancywork(
             title,
-            state.image_url,
-            state.image_path,
+            state.imageUrl,
+            state.imagePath,
             bitmap.width,
             bitmap.height,
             colors,

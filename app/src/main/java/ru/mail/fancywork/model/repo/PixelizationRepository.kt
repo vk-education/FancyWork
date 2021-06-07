@@ -2,15 +2,34 @@ package ru.mail.fancywork.model.repo
 
 import android.content.res.Resources
 import android.graphics.Bitmap
-import kotlinx.coroutines.*
+import java.util.concurrent.ConcurrentLinkedQueue
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.sqrt
+import kotlin.random.Random
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.mail.fancywork.R
 import ru.mail.fancywork.model.datatype.MutablePair
 import ru.mail.fancywork.model.datatype.MutableTriple
-import java.util.concurrent.ConcurrentLinkedQueue
-import kotlin.math.*
-import kotlin.random.Random
 
 class PixelizationRepository {
+    companion object {
+        private const val SECOND_BYTE = 8
+        private const val THIRD_BYTE = 16
+        private const val FULL_BYTE = 0xff
+        private const val MAX_ITERATIONS = 30
+        private const val STARTING_DIFF = 1000000.0
+        private const val MIN_DIFF = 3.0
+    }
 
     // Method for getting thread colors from resources.
     fun getThreadColors(resources: Resources): List<Pair<String, Triple<Int, Int, Int>>> {
@@ -20,7 +39,10 @@ class PixelizationRepository {
             .readLines()
             .drop(1)
             .map { x -> x.split(",") }
-            .map { x -> x[0] to Triple(x[1].toInt(), x[2].toInt(), x[3].toInt()) }
+            .map { x ->
+                var i = 0
+                x[i++] to Triple(x[i++].toInt(), x[i++].toInt(), x[i].toInt())
+            }
         stream.close()
         return colors
     }
@@ -30,14 +52,14 @@ class PixelizationRepository {
         bitmap: Bitmap,
         pixelSize: Int,
         colorsCount: Int,
-        colors: List<Pair<String, Triple<Int, Int, Int>>>):
-            Pair<Bitmap, Array<Array<String?>>> = withContext(Dispatchers.IO){
+        colors: List<Pair<String, Triple<Int, Int, Int>>>
+    ): Pair<Bitmap, Array<Array<String?>>> = withContext(Dispatchers.IO) {
         lateinit var mainColors: List<Pair<String, Triple<Int, Int, Int>>>
         lateinit var pixelatedBitmap: Bitmap
         val kmeansJob = launch {
             mainColors = kmeans(bitmap, colorsCount, colors)
         }
-        val pixelizationJob = launch{
+        val pixelizationJob = launch {
             pixelatedBitmap =
                 Bitmap.createScaledBitmap(
                     bitmap,
@@ -61,9 +83,10 @@ class PixelizationRepository {
                     launch {
                         val pixel = pixelatedBitmap.getPixel(i, j)
                         val pixelColor = colorToTriple(pixel)
-                        val mainColor = mainColors.minByOrNull { x -> findDistance(x.second, pixelColor) }!!
-                        val mainRGB = (mainColor.second.first shl 16) +
-                                (mainColor.second.second shl 8) + mainColor.second.third
+                        val mainColor =
+                            mainColors.minByOrNull { x -> findDistance(x.second, pixelColor) }!!
+                        val mainRGB = (mainColor.second.first shl THIRD_BYTE) +
+                            (mainColor.second.second shl SECOND_BYTE) + mainColor.second.third
                         threadCodes[i][j] = mainColor.first
                         bitmapColors[j * pixelatedWidth + i] = mainRGB
                     }
@@ -71,31 +94,35 @@ class PixelizationRepository {
             }
         listOfJobs.joinAll()
         val resultBitmap =
-            Bitmap.createBitmap(bitmapColors, pixelatedWidth, pixelatedHeight, Bitmap.Config.RGB_565)
+            Bitmap.createBitmap(
+                bitmapColors,
+                pixelatedWidth,
+                pixelatedHeight,
+                Bitmap.Config.RGB_565
+            )
         return@withContext resultBitmap to threadCodes
     }
 
     private fun colorToTriple(color: Int): MutableTriple<Int, Int, Int> {
         return MutableTriple(
-            (color shr 16) and 0xff,
-            (color shr 8) and 0xff,
-            color and 0xff
+            (color shr THIRD_BYTE) and FULL_BYTE,
+            (color shr SECOND_BYTE) and FULL_BYTE,
+            color and FULL_BYTE
         )
     }
 
-    private fun findDistance(x: Triple<Int, Int, Int>, colorsAv: MutableTriple<Int, Int, Int>): Double {
-        return (((1 + max(x.first, colorsAv.first)).toDouble() / (1 + min(
-            x.first,
-            colorsAv.first
-        ))).pow(2)
-                + ((1 + max(x.second, colorsAv.second)).toDouble() / (1 + min(
+    private fun singleColorDistance(a: Int, b: Int): Double {
+        return ((1 + max(a, b)).toDouble() / (1 + min(a, b))).pow(2)
+    }
+
+    private fun findDistance(
+        x: Triple<Int, Int, Int>,
+        colorsAv: MutableTriple<Int, Int, Int>
+    ): Double {
+        return singleColorDistance(x.first, colorsAv.first) + singleColorDistance(
             x.second,
             colorsAv.second
-        ))).pow(2)
-                + ((1 + max(x.third, colorsAv.third)).toDouble() / (1 + min(
-            x.third,
-            colorsAv.third
-        ))).pow(2))
+        ) + singleColorDistance(x.third, colorsAv.third)
     }
 
     private suspend fun kmeans(
@@ -110,7 +137,7 @@ class PixelizationRepository {
         for (color in imageIntColors) {
             val colorTriple = colorToTriple(color)
             if (!imageColors.containsKey(colorTriple))
-                imageColors.put(colorToTriple(color), 1)
+                imageColors[colorToTriple(color)] = 1
             else
                 imageColors[colorTriple] = imageColors[colorTriple]!! + 1
         }
@@ -119,10 +146,10 @@ class PixelizationRepository {
         // Заготавливаем списки точек для кластеров.
         val clusters = Array(k) { MutablePair(MutableTriple(0, 0, 0), 0) }
         val listOfJobs = ConcurrentLinkedQueue<Deferred<Double>>()
-        var diff = 1000000.0
+        var diff = STARTING_DIFF
         var iteration = 0
         // Обновляем центроиды, пока они не перестанут смещаться, либо пока не пройдет слишком много итераций.
-        while (diff > 3.0 && iteration < 30) {
+        while (diff > MIN_DIFF && iteration < MAX_ITERATIONS) {
             for (cluster in clusters) {
                 cluster.first.first = 0
                 cluster.first.second = 0
@@ -143,38 +170,7 @@ class PixelizationRepository {
             // Для каждого центроида меняем его положение на среднее из точек в его кластере.
             for (i in 0 until k) {
                 listOfJobs.add(
-                    async {
-                        val newCenter = MutableTriple(0, 0, 0)
-                        // Если в кластере этого центроида нет точек, рандомим ему новое поожение.
-                        if (clusters[i].second != 0) {
-                            newCenter.first = clusters[i].first.first / clusters[i].second
-                            newCenter.second = clusters[i].first.second / clusters[i].second
-                            newCenter.third = clusters[i].first.third / clusters[i].second
-                        } else {
-                            newCenter.first =
-                                Random.nextInt(
-                                    imageColors.minByOrNull { x -> x.key.first }!!.key.first,
-                                    imageColors.maxByOrNull { x -> x.key.first }!!.key.first
-                                )
-                            newCenter.second =
-                                Random.nextInt(
-                                    imageColors.minByOrNull { x -> x.key.second }!!.key.second,
-                                    imageColors.maxByOrNull { x -> x.key.second }!!.key.second
-                                )
-                            newCenter.third =
-                                Random.nextInt(
-                                    imageColors.minByOrNull { x -> x.key.third }!!.key.third,
-                                    imageColors.maxByOrNull { x -> x.key.third }!!.key.third
-                                )
-                        }
-                        // Вычисляем максимальное смещение центроидов.
-                        val currentDiff = euclidDistance(centers[i].second, newCenter)
-                        centers[i].first = i
-                        centers[i].second.first = newCenter.first
-                        centers[i].second.second = newCenter.second
-                        centers[i].second.third = newCenter.third
-                        diff
-                    }
+                    async(block = recenterCluster(clusters, i, imageColors, centers, diff))
                 )
                 diff = listOfJobs.awaitAll().maxOrNull()!!
                 listOfJobs.clear()
@@ -186,32 +182,85 @@ class PixelizationRepository {
         }.toList()
     }
 
-    private fun initCenters(colors: MutableMap<MutableTriple<Int, Int, Int>, Int>, k: Int):
-            MutableList<MutablePair<Int, MutableTriple<Int, Int, Int>>> {
+    private fun recenterCluster(
+        clusters: Array<MutablePair<MutableTriple<Int, Int, Int>, Int>>,
+        i: Int,
+        imageColors: MutableMap<MutableTriple<Int, Int, Int>, Int>,
+        centers: MutableList<MutablePair<Int, MutableTriple<Int, Int, Int>>>,
+        diff: Double
+    ): suspend CoroutineScope.() -> Double {
+        return {
+            val newCenter = MutableTriple(0, 0, 0)
+            // Если в кластере этого центроида нет точек, рандомим ему новое поожение.
+            if (clusters[i].second != 0) {
+                newCenter.first = clusters[i].first.first / clusters[i].second
+                newCenter.second = clusters[i].first.second / clusters[i].second
+                newCenter.third = clusters[i].first.third / clusters[i].second
+            } else {
+                newCenter.first =
+                    Random.nextInt(
+                        imageColors.minByOrNull { x -> x.key.first }!!.key.first,
+                        imageColors.maxByOrNull { x -> x.key.first }!!.key.first
+                    )
+                newCenter.second =
+                    Random.nextInt(
+                        imageColors.minByOrNull { x -> x.key.second }!!.key.second,
+                        imageColors.maxByOrNull { x -> x.key.second }!!.key.second
+                    )
+                newCenter.third =
+                    Random.nextInt(
+                        imageColors.minByOrNull { x -> x.key.third }!!.key.third,
+                        imageColors.maxByOrNull { x -> x.key.third }!!.key.third
+                    )
+            }
+            // Вычисляем максимальное смещение центроидов.
+            val currentDiff = euclidDistance(centers[i].second, newCenter)
+            centers[i].first = i
+            centers[i].second.first = newCenter.first
+            centers[i].second.second = newCenter.second
+            centers[i].second.third = newCenter.third
+            diff
+        }
+    }
+
+    private fun initCenters(
+        colors: MutableMap<MutableTriple<Int, Int, Int>, Int>,
+        k: Int
+    ): MutableList<MutablePair<Int, MutableTriple<Int, Int, Int>>> {
         val centers = mutableListOf<MutablePair<Int, MutableTriple<Int, Int, Int>>>()
         for (i in 0 until k) {
-            centers.add(MutablePair(i, MutableTriple(
-                Random.nextInt(
-                    colors.minByOrNull { x -> x.key.first }!!.key.first,
-                    colors.maxByOrNull { x -> x.key.first }!!.key.first
-                ),
-                Random.nextInt(
-                    colors.minByOrNull { x -> x.key.second }!!.key.second,
-                    colors.maxByOrNull { x -> x.key.second }!!.key.second
-                ),
-                Random.nextInt(
-                    colors.minByOrNull { x -> x.key.third }!!.key.third,
-                    colors.maxByOrNull { x -> x.key.third }!!.key.third
+            centers.add(
+                MutablePair(
+                    i,
+                    MutableTriple(
+                        Random.nextInt(
+                            colors.minByOrNull { x -> x.key.first }!!.key.first,
+                            colors.maxByOrNull { x -> x.key.first }!!.key.first
+                        ),
+                        Random.nextInt(
+                            colors.minByOrNull { x -> x.key.second }!!.key.second,
+                            colors.maxByOrNull { x -> x.key.second }!!.key.second
+                        ),
+                        Random.nextInt(
+                            colors.minByOrNull { x -> x.key.third }!!.key.third,
+                            colors.maxByOrNull { x -> x.key.third }!!.key.third
+                        )
+                    )
                 )
-            )))
+            )
         }
         return centers
     }
 
-    private fun euclidDistance(x: MutableTriple<Int, Int, Int>, y: MutableTriple<Int, Int, Int>): Double =
-        sqrt((
+    private fun euclidDistance(
+        x: MutableTriple<Int, Int, Int>,
+        y: MutableTriple<Int, Int, Int>
+    ): Double =
+        sqrt(
+            (
                 (x.first - y.first) * (x.first - y.first) +
-                        (x.first - y.first) * (x.first - y.first) +
-                        (x.first - y.first) * (x.first - y.first)
-                ).toDouble())
+                    (x.first - y.first) * (x.first - y.first) +
+                    (x.first - y.first) * (x.first - y.first)
+                ).toDouble()
+        )
 }

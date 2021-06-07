@@ -2,25 +2,21 @@ package ru.mail.fancywork.model.repo
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.ByteArrayOutputStream
+import java.util.UUID
 import kotlinx.coroutines.tasks.await
 import ru.mail.fancywork.model.datatype.BitmapStorageState
-import java.io.ByteArrayOutputStream
-import java.util.*
 
-class CloudStorageRepository(private val cs: StorageReference = FirebaseStorage.getInstance().reference) {
+class CloudStorageRepository(
+    private val cs: StorageReference = FirebaseStorage.getInstance().reference
+) {
     companion object {
         private const val maxImageSize: Long = (1 shl 20) * 10
     }
 
     var imageRef: StorageReference = cs.child("images")
-
-    fun getImagePath(imageName: String) {
-
-
-    }
 
     suspend fun uploadImage(bitmap: Bitmap): BitmapStorageState {
         val baos = ByteArrayOutputStream()

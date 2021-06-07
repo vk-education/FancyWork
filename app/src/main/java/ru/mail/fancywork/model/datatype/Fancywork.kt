@@ -4,32 +4,49 @@ import android.graphics.Bitmap
 import android.os.Parcelable
 import com.google.firebase.firestore.Exclude
 import kotlinx.android.parcel.Parcelize
-fun countDifficulty(work:Fancywork):Difficulty {
-    if (work.height >= 50 || work.width >= 50 || work.colors >= 7) {
+
+private const val EXTREMELY_HARD_COLORS = 7
+private const val MEDIUM_COLORS = 5
+private const val EXTREMELY_HARD_SIZE = 50
+private const val HARD_SIZE = 40
+private const val MEDIUM_SIZE = 25
+private const val EASY_SIZE = 10
+
+fun countDifficulty(work: Fancywork): Difficulty {
+    return if (
+        work.height >= EXTREMELY_HARD_SIZE ||
+        work.width >= EXTREMELY_HARD_SIZE ||
+        work.colors >= EXTREMELY_HARD_COLORS
+    ) {
         work.difficulty = Difficulty.EXTREMELY_HARD
-        return Difficulty.EXTREMELY_HARD
-    } else if (work.height >= 40 || work.width >= 40) {
-        work.difficulty =  Difficulty.HARD
-        return Difficulty.HARD
-    } else if (work.height >= 25 || work.width >= 25 || work.colors >= 5) {
-        work.difficulty =  Difficulty.MEDIUM
-        return Difficulty.MEDIUM
-    } else if (work.height >= 10 || work.width >= 10) {
-        work.difficulty =  Difficulty.EASY
-        return Difficulty.EASY
+        Difficulty.EXTREMELY_HARD
+    } else if (work.height >= HARD_SIZE || work.width >= HARD_SIZE) {
+        work.difficulty = Difficulty.HARD
+        Difficulty.HARD
+    } else if (
+        work.height >= MEDIUM_SIZE ||
+        work.width >= MEDIUM_SIZE ||
+        work.colors >= MEDIUM_COLORS
+    ) {
+        work.difficulty = Difficulty.MEDIUM
+        Difficulty.MEDIUM
+    } else if (work.height >= EASY_SIZE || work.width >= EASY_SIZE) {
+        work.difficulty = Difficulty.EASY
+        Difficulty.EASY
+    } else {
+        Difficulty.UNDEFINED
     }
-    return Difficulty.UNDEFINED
 }
 
 @Parcelize
 data class Fancywork(
     val title: String,
-    val image_url: String,
-    val image_path: String,
+    val imageUrl: String,
+    val imagePath: String,
     val width: Int,
     val height: Int,
     val colors: Int,
-    var document_id: String = "",
+    var documentId: String = "",
     var author: String = "unknown",
     var difficulty: Difficulty = Difficulty.UNDEFINED,
     @Exclude
