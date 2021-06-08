@@ -64,24 +64,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Image Title:"
+                android:hint="@string/image_title"
                 app:boxBackgroundColor="@color/lightBackground"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">>
+                app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fancywork_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fancywork"
+                    android:text="@string/fancywork"
                     android:textSize="20sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-                android:text="Scale"
+                android:text="@string/scale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/scale_text"
@@ -109,7 +109,7 @@
 
 
         <TextView
-                android:text="Colors"
+                android:text="@string/colors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/color_text"
@@ -145,7 +145,7 @@
             <Button
                     android:id="@+id/process_button"
                     android:layout_margin="5dp"
-                    android:text="Process"
+                    android:text="@string/process"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -154,7 +154,7 @@
                     android:id="@+id/save_button"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

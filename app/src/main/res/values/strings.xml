@@ -8,4 +8,13 @@
     <string name="google">войти через Google аккаунт</string>
     <string name="info">размер: %dх%d\nцветов: %d</string>
     <string name="share">Share</string>
+    <string name="fancy_nstring">Fancy\nString</string>
+    <string name="enter">Войти</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="image_title">Image Title:</string>
+    <string name="fancywork">Fancywork</string>
+    <string name="scale">Scale</string>
+    <string name="colors">Colors</string>
+    <string name="process">Process</string>
+    <string name="save">Save</string>
 </resources>
