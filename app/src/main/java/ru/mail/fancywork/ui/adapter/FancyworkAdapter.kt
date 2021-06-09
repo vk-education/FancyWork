@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.mail.fancywork.R
 import ru.mail.fancywork.databinding.ViewFancyworkBinding
 import ru.mail.fancywork.model.datatype.Fancywork
 import ru.mail.fancywork.ui.primary.MainActivity
@@ -29,13 +30,18 @@ class FancyworkAdapter(
         with(holder) {
             with(worksList[position]) {
                 binding.name.text = title
-                binding.difficulty.rating = 4F
+                val stars: Float = difficulty.ordinal + 1F
+                binding.difficulty.rating = stars
                 binding.colorText.text = "Colors: $colors"
-                binding.sizeText.text = "Size: ${width} x $height"
+                binding.sizeText.text = "Size: $width x $height"
                 if (bitmap != null) {
                     binding.image.setImageBitmap(bitmap)
                 } else {
-                    Glide.with(itemView.context).load(Uri.parse(image_url)).into(binding.image)
+                    Glide.with(itemView.context).load(Uri.parse(imageUrl)).centerCrop()
+                        .placeholder(R.drawable.ic_embroidery_colored)
+                        .error(R.drawable.ic_broken_image)
+                        .fallback(R.drawable.ic_embroidery)
+                        .into(binding.image)
                 }
                 binding.layout.setOnClickListener {
                     itemView.context.startActivity(
@@ -44,7 +50,8 @@ class FancyworkAdapter(
                             ShowcaseActivity::class.java
                         ).apply {
                             putExtra(MainActivity.FANCYWORK_MESSAGE, worksList[position])
-                        })
+                        }
+                    )
                 }
             }
         }

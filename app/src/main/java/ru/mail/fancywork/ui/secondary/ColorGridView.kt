@@ -8,12 +8,18 @@ import android.widget.GridLayout
 import androidx.core.graphics.get
 
 class ColorGridView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : GridLayout(context, attrs, defStyleAttr) {
+    companion object {
+        private const val TILE_SIZE = 150
+    }
+
     private fun createPixel(color: Int): View {
         val view = View(context)
         view.setBackgroundColor(color)
-        // todo: ClickListeners or whatever
+        // todo ClickListeners or whatever
         return view
     }
 
@@ -28,8 +34,8 @@ class ColorGridView @JvmOverloads constructor(
             for (col in 0 until bitmap.width) {
                 val colSpec = spec(col)
                 val params = LayoutParams(rowSpec, colSpec)
-                params.width = 150/scale
-                params.height = 150/scale
+                params.width = TILE_SIZE / scale
+                params.height = TILE_SIZE / scale
                 val view = createPixel(bitmap[col, row])
                 addView(view, params)
             }

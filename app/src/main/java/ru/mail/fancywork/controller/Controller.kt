@@ -1,8 +1,10 @@
 package ru.mail.fancywork.controller
 
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import ru.mail.fancywork.model.datatype.Fancywork
+import ru.mail.fancywork.model.datatype.countDifficulty
 import ru.mail.fancywork.model.repo.AuthRepository
 import ru.mail.fancywork.model.repo.CloudStorageRepository
 import ru.mail.fancywork.model.repo.FirestoreRepository
@@ -43,20 +45,35 @@ class Controller(
         val state = cloud.uploadImage(bitmap)
         val fancywork = Fancywork(
             title,
-            state.image_url,
-            state.image_path,
+            state.imageUrl,
+            state.imagePath,
             bitmap.width,
             bitmap.height,
             colors,
         )
+        fancywork.difficulty = countDifficulty(fancywork)
         fs.addFancywork(fancywork, auth.getUid())
         fancywork.bitmap = bitmap
         return fancywork
     }
 
-    fun pixelate(bitmap: Bitmap, width: Int, height: Int, colors: Int): Bitmap {
-        // todo (needs better pixelRepo)
-        return Bitmap.createScaledBitmap(bitmap, width, height, false)
+    fun initThreadColors(resources: Resources): List<Pair<String, Triple<Int, Int, Int>>> {
+        return pixel.getThreadColors(resources)
+    }
+
+    suspend fun pixelate(
+        bitmap: Bitmap,
+        width: Int,
+        height: Int,
+        colors: Int,
+        threadColors: List<Pair<String, Triple<Int, Int, Int>>>
+    ): Bitmap {
+        return pixel.getPixelsFromImage(
+            bitmap,
+            bitmap.width / width,
+            colors,
+            threadColors
+        ).first
     }
 
     suspend fun getFancyworks(): List<Fancywork>? {

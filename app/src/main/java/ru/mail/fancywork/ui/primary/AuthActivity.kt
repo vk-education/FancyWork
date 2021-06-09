@@ -37,7 +37,8 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     else -> Toast.makeText(
                         this,
-                        ERROR_SIGN_IN, Toast.LENGTH_SHORT
+                        ERROR_SIGN_IN,
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -60,7 +61,7 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private const val TAG = "WelcomeActivity"
-        private const val ERROR_SIGN_IN = "Sing-In in your Google Account at first!";
+        private const val ERROR_SIGN_IN = "Sing-In in your Google Account at first!"
         private const val RC_SIGN_IN = 9001
     }
 }

@@ -3,7 +3,6 @@ package ru.mail.fancywork.ui.primary
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         findViewById<SwipeRefreshLayout>(R.id.refresh).setOnRefreshListener {
-            // TODO: soon it should be calling to refresh recyclerview. By now, it works fine without it.
+            // TODO soon it should be calling to refresh recyclerview. By now, it works fine without it.
             // refresh()
             findViewById<SwipeRefreshLayout>(R.id.refresh).isRefreshing = false
         }
@@ -65,9 +64,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (resultCode != Activity.RESULT_OK || data == null) return
 
         if (requestCode == PICK_IMAGE) {
-            startActivityForResult(Intent(this, WorkspaceActivity::class.java).apply {
-                putExtra(BITMAP_MESSAGE, data.data)
-            }, BITMAP_ANSWER)
+            startActivityForResult(
+                Intent(this, WorkspaceActivity::class.java).apply {
+                    putExtra(BITMAP_MESSAGE, data.data)
+                },
+                BITMAP_ANSWER
+            )
         } else if (requestCode == BITMAP_ANSWER) {
             fullEmbroideryList.add(data.getParcelableExtra(FANCYWORK_MESSAGE)!!)
             fancyworkAdapter.notifyDataSetChanged()
@@ -81,7 +83,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             fancyworks.adapter?.notifyDataSetChanged()
         }
     }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {

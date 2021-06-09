@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -18,8 +19,12 @@ import ru.mail.fancywork.R
 import ru.mail.fancywork.controller.Controller
 import ru.mail.fancywork.ui.secondary.ColorGridView
 
-
 class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
+    companion object {
+        private const val DEFAULT_SCALE = 25
+        private const val DEFAULT_COLORS = 5
+    }
+
     private val controller = Controller()
 
     private lateinit var originalBitmap: Bitmap
@@ -27,8 +32,9 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var colorGridView: ColorGridView
     private lateinit var scaleSlider: Slider
     private lateinit var colorSlider: Slider
-    private var scale = 25
-    private var colors = 5
+    private lateinit var threadColors: List<Pair<String, Triple<Int, Int, Int>>>
+    private var scale = DEFAULT_SCALE
+    private var colors = DEFAULT_COLORS
     private var isDirty = true
 
     private fun pixelate() {
@@ -40,13 +46,27 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
         val width = if (isVertical) (scale * ratio).toInt() else scale
         val height = if (isVertical) scale else (scale / ratio).toInt()
 
-        pixelatedBitmap = controller.pixelate(originalBitmap, width, height, colors)
-        colorGridView.setImage(pixelatedBitmap, scale)
+        lifecycleScope.launch {
+            workspace_pb.visibility = View.VISIBLE
+            workspace_view.visibility = View.VISIBLE
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+            pixelatedBitmap =
+                controller.pixelate(originalBitmap, width, height, colors, threadColors)
+            colorGridView.setImage(pixelatedBitmap, scale)
+            workspace_pb.visibility = View.INVISIBLE
+            workspace_view.visibility = View.INVISIBLE
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workspace)
+
+        threadColors = controller.initThreadColors(resources)
 
         val uri = intent.getParcelableExtra<Uri>(MainActivity.BITMAP_MESSAGE)!!
         val inputStream = this.applicationContext.contentResolver.openInputStream(uri)
@@ -91,6 +111,10 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
             R.id.save_button -> {
                 pixelate()
                 lifecycleScope.launch {
+                    window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
                     workspace_pb.visibility = View.VISIBLE
                     workspace_view.visibility = View.VISIBLE
                     val result = controller.addFancywork(
@@ -100,9 +124,13 @@ class WorkspaceActivity : AppCompatActivity(), View.OnClickListener {
                     )
                     workspace_pb.visibility = View.INVISIBLE
                     workspace_view.visibility = View.INVISIBLE
-                    setResult(Activity.RESULT_OK, Intent().apply {
-                        putExtra(MainActivity.FANCYWORK_MESSAGE, result)
-                    })
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                    setResult(
+                        Activity.RESULT_OK,
+                        Intent().apply {
+                            putExtra(MainActivity.FANCYWORK_MESSAGE, result)
+                        }
+                    )
                     finish()
                 }
             }

@@ -13,17 +13,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/secondaryColor"
-            android:theme="@style/ToolbarStyleLight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+                app:navigationIcon="@drawable/ic_back"
                 app:title="Fancywork Showcase"
                 android:theme="@style/ToolbarStyleLight"
-                android:id="@+id/top_bar"
+                android:id="@+id/top_bar_showcase"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/top_showcase_actionbar"
                 android:hapticFeedbackEnabled="false" />
     </com.google.android.material.appbar.AppBarLayout>
 
